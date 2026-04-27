@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  color-scheme: dark light;
+}
+body, html, #app {
+  height: 100%;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+}
+ul, li {
+  list-style: none;
+}

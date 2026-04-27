@@ -1,0 +1,13 @@
+# 前端
+client/node_modules
+client/dist
+client/.env
+
+# 后端
+api/target
+api/.env
+
+# IDE
+.idea
+.vscode
+*.iml

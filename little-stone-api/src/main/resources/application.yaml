@@ -1,0 +1,19 @@
+server:
+  port: 9000
+
+
+spring:
+  application:
+    name: little-stone-api
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/little_stone?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&rewriteBatchedStatements=true
+    username: root
+    password: fushi_00
+
+
+application:
+  security:
+    jwt:
+      secret-key: 3R6a50IK2yPGNIvtmZTl25Ntiy8RfhLPyR6gWIYQ9Jo=
+      expiration: 86400000
