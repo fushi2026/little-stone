@@ -1,11 +1,11 @@
 # 前端
-client/node_modules
-client/dist
-client/.env
+little-stone-web/node_modules
+little-stone-web/dist
+little-stone-web/.env
 
 # 后端
-api/target
-api/.env
+little-stone-api/target
+little-stone-api/.env
 
 # IDE
 .idea
