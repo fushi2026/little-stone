@@ -1,14 +1,15 @@
 package com.fushi.service.impl;
 
+import com.fushi.dto.LoginRequestDTO;
 import com.fushi.dto.LoginResponseDTO;
 import com.fushi.entity.User;
-import com.fushi.mapper.RoleMapper;
-import com.fushi.mapper.RolePermissionMapper;
-import com.fushi.mapper.UserMapper;
-import com.fushi.mapper.UserRoleMapper;
+import com.fushi.security.model.LoginUser;
 import com.fushi.security.util.JwtTokenUtil;
 import com.fushi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,35 +18,35 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserMapper userMapper;
+    private AuthenticationManager authenticationManager;
     @Autowired
-    private UserRoleMapper userRoleMapper;
-    @Autowired
-    private RoleMapper roleMapper;
-    @Autowired
-    private RolePermissionMapper rolePermissionMapper;
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private JwtTokenUtil jwtUtils;
 
     @Override
-    public LoginResponseDTO getLoginUserInfo(String username) {
-        LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
+    public LoginResponseDTO login(LoginRequestDTO request) {
+        //1、spring security 认证
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
+        );
 
-        Optional<User> optionalUser = userMapper.findByUsername(username);
-        optionalUser.ifPresent(user -> {
-            loginResponseDTO.setUsername(username);
-            loginResponseDTO.setRealName(user.getRealName());
-            loginResponseDTO.setToken(jwtTokenUtil.generateToken(username));
+        //2、从认证结果里拿用户信息
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        User user = loginUser.getUser();
 
-            //用户角色
-            List<Long> roleIds = userRoleMapper.selectRoleIdsByUserId(user.getId());
-            List<String> roleNames = roleMapper.selectRoleNamesByRoleIds(roleIds);
-            loginResponseDTO.setRoles(roleNames);
+        //3、用户是否禁用
+        if (user.getStatus() == 0) {
+            throw new RuntimeException("用户已被禁用");
+        }
 
-            //用户权限
+        String token = jwtUtils.generateToken(user.getUsername());
 
-        });
-
-        return loginResponseDTO;
+        LoginResponseDTO dto = new LoginResponseDTO();
+        dto.setToken(token);
+        dto.setUsername(user.getUsername());
+        dto.setRealName(user.getRealName());
+        dto.setRoles(loginUser.getRoles());
+        dto.setPermissions(loginUser.getPermissions());
+        dto.setMenuTree(loginUser.getMenuTree());
+        return dto;
     }
 }

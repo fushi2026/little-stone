@@ -1,11 +1,12 @@
 package com.fushi.security.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fushi.entity.Permission;
 import com.fushi.entity.User;
+import com.fushi.mapper.PermissionMapper;
 import com.fushi.mapper.RoleMapper;
 import com.fushi.mapper.UserMapper;
-import com.fushi.mapper.UserRoleMapper;
-import com.fushi.service.RolePermissionService;
+import com.fushi.security.model.LoginUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +27,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private RoleMapper roleMapper;
     @Autowired
-    private RolePermissionService rolePermissionService;
-    @Autowired
-    private UserRoleMapper userRoleMapper;
+    private PermissionMapper permissionMapper;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -47,37 +46,48 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("用户已被禁用，请联系管理员");
         }
 
-        // 获取用户角色
-        List<Long> roleIds = userRoleMapper.selectRoleIdsByUserId(user.getId());
-        if(CollectionUtils.isEmpty(roleIds)) {
-            log.info("用户[{}]没有角色", username);
-        }
+        //2、查询用户角色
+        List<String> roleNames = roleMapper.selectRoleNamesByUserId(user.getId());
 
-        // 获取角色权限
+        //3、查询用户按钮权限标识
+        List<String> permKeys = permissionMapper.selectPermKeysByUserId(user.getId());
+
+        //用户菜单列表，构建树形对象
+        List<Permission> permissions = permissionMapper.selectMenusByUserId(user.getId());
+        List<Permission> menuTree = buildMenuTree(permissions);
+
+
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        if(!CollectionUtils.isEmpty(roleIds)) {
-            List<String> roleNames = roleMapper.selectRoleNamesByRoleIds(roleIds);
-            roleNames.forEach(roleName -> {
-                authorities.add(new SimpleGrantedAuthority("ROLE_" + roleName));
-                log.debug("用户[{}]加载角色ROLE_{}", username, roleName);
-            });
+        for(String roleName: roleNames) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + roleName));
+        };
 
-            List<String> permKeys = rolePermissionService.selectPermKeysByRoleIds(roleIds);
-            permKeys.forEach(permKey -> {
-                authorities.add(new SimpleGrantedAuthority(permKey));
-                log.debug("用户[{}]加载权限{}", username, permKey);
-            });
-        }
+        for(String permKey: permKeys) {
+            authorities.add(new SimpleGrantedAuthority(permKey));
+        };
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
-                user.getStatus() == 1,
-                true,
-                true,
-                true,
-                authorities
-        );
+        return new LoginUser(user, roleNames, permKeys, menuTree, authorities);
     }
+
+    private List<Permission> buildMenuTree(List<Permission> list) {
+        List<Permission> menuTree = new ArrayList<>();
+        for(Permission p: list) {
+            if (p.getParentId() == 0) {
+                menuTree.add(findChildren(p, list));
+            }
+        }
+        return menuTree;
+    }
+
+    private Permission findChildren(Permission parent, List<Permission> list) {
+        for(Permission p: list) {
+            if(p.getParentId().equals(parent.getId())) {
+                parent.getChildren().add(findChildren(p, list));
+            }
+        }
+        return parent;
+    }
+
+
 }

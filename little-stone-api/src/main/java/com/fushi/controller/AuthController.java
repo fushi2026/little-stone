@@ -38,26 +38,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ApiResponse<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO authRequest) {
-        String username = authRequest.getUsername();
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, authRequest.getPassword()));
-        } catch (BadCredentialsException e) {
-            log.warn("用户[{}]登录失败：密码错误", username);
-            return ApiResponse.error(ResultCode.UNAUTHORIZED.getCode(), "用户名或密码错误");
-        } catch (Exception e) {
-            log.warn("用户[{}]登录异常！", username, e);
-            return ApiResponse.error(ResultCode.INTERNAL_ERROR.getCode(), "登录失败，请联系管理员！");
-        }
-
-        try {
-            LoginResponseDTO responseDTO = userService.getLoginUserInfo(username);
-            log.info("用户[{}]登录成功", username);
-            return ApiResponse.success(responseDTO);
-        } catch (Exception e) {
-            log.error("用户[{}]生成令牌异常！", username, e);
-            return ApiResponse.error(ResultCode.INTERNAL_ERROR.getCode(), "生成令牌失败");
-        }
-
+        LoginResponseDTO responseDTO = userService.login(authRequest);
+        return ApiResponse.success(responseDTO);
     }
 
     @PostMapping("/regist")

@@ -63,6 +63,7 @@ import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const userStore = useUserStore()
 
 // 表单引用
 const loginFormRef = ref(null)
@@ -101,16 +102,13 @@ const handleLogin = async () => {
   isLoading.value = true
 
   try {
-    //login(loginForm)
-    const store = useUserStore()
 
-    store.login(loginForm)
+    await userStore.login(loginForm)
 
     ElMessage.success('登录成功！')
     
-    router.push('/finance/dashboard')
+    router.push('/')
   } catch (error) {
-    // 登录失败提示
     ElMessage.error('登录失败：账号或密码错误')
     console.error('登录错误：', error)
   } finally {
@@ -125,7 +123,7 @@ const resetForm = () => {
 }
 </script>
 
-<style scoped type="scss">
+<style scoped>
 .login-container {
     background: url('@/assets/img/7cd5837b89f3a6e237ff9daf21082f04.jpg') no-repeat center center / cover;
 }

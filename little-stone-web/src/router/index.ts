@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import {isLogin} from '@/utils/auth'
 import { useUserStore } from '@/stores/user'
-import type {RouteMeta} from '@/types/auth'
 import { ElMessage } from 'element-plus'
 
 
@@ -10,38 +9,13 @@ const routes: Array<RouteRecordRaw> = [
   { 
     path: '/',
     component: () => import('@/components/Layout.vue'),
-    redirect: '/dashboard',
+    redirect: '/home',
     children: [
       {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: () => import('@/views/Dashboard.vue'),
-        meta: { title: '业财仪表盘', requiresAuth: true }
-      },
-      {
-        path: 'bill',
-        name: 'Bill',
-        component: () => import('@/views/BillList.vue'),
-        meta: { title: '账单管理', requiresAuth: true }
-      },
-      {
-        path: 'bill/:id',
-        name: 'BillDetail',
-        component: () => import('@/views/BillDetail.vue'),
-        meta: { title: '账单详情', requiresAuth: true },
-        props: true
-      },
-      {
-        path: 'bill/create',
-        name: 'BillCreate',
-        component: () => import('@/views/BillCreate.vue'),
-        meta: { title: '新增账单', requiresAuth: true }
-      },
-      {
-        path: 'profile',
-        name: 'Profile',
-        component: () => import('@/views/Profile.vue'),
-        meta: { title: '个人设置', requiresAuth: true, roles: ['admin'] }
+        path: 'home',
+        name: 'Home',
+        component: () => import('@/views/Home.vue'),
+        meta: { title: '首页', requiresAuth: true }
       }
     ]
   },
@@ -66,39 +40,43 @@ export const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+ if(isLogin() && to.name === 'Login') {
+    next({ path: '/' })
+    return
+  }
+
   if(!to.meta.requiresAuth) {
-    next();
-    return;
+    next()
+    return
   }
 
   if(!isLogin()) {
-    next({ path: '/login', query: { redirect: to.fullPath } });
-    ElMessage.warning('请先登录！');
-    return;
+    next({ path: '/login', query: { redirect: to.fullPath } })
+    ElMessage.warning('请先登录！')
+    return
   }
 
-  const userStore = useUserStore();
+  const userStore = useUserStore()
   if(!userStore.userInfo) {
     try {
         await userStore.fetchUserInfo();
     } catch (error) {
-        userStore.logout();
-        next({ path: '/login', query: { redirect: to.fullPath } });
-        return;
+        userStore.logout()
+        next({ path: '/login', query: { redirect: to.fullPath } })
+        return
     }
   }
 
   if(to.meta.roles && to.meta.roles.length > 0) {
-    const userRole = userStore.userInfo?.role;
-    if(!userRole || !to.meta.roles.includes(userRole)) {
-      ElMessage.error('您无权访问该页面！');
-      next({ name: 'NotFound' });
-      return;
+    const hasPermission = to.meta.roles.some((role: string) => userStore.hasRole(role))
+    if(!hasPermission) {
+      ElMessage.error('您无权访问该页面！')
+      next({ name: 'NotFound' })
+      return
     }
   }
 
   next()
-
 })
 
 

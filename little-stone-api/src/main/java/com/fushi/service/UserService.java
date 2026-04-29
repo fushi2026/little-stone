@@ -1,7 +1,8 @@
 package com.fushi.service;
 
+import com.fushi.dto.LoginRequestDTO;
 import com.fushi.dto.LoginResponseDTO;
 
 public interface UserService {
-    LoginResponseDTO getLoginUserInfo(String username);
+    LoginResponseDTO login(LoginRequestDTO request);
 }

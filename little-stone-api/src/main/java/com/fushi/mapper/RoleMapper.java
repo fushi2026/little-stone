@@ -22,4 +22,7 @@ public interface RoleMapper extends BaseMapper<Role> {
 
         return roles.stream().map(Role::getRoleName).toList();
     }
+
+    public List<String> selectRoleNamesByUserId(@Param("userId") Long userId);
+
 }
