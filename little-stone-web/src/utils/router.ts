@@ -2,10 +2,9 @@ import type { RouteRecordRaw } from "vue-router"
 import type { MenuItem } from '@/types/auth'
 
 
-
 //组件映射表
 const componentMap: Record<string, any> = {
-    Home: () => import('@/views/Home.vue'),
+    Home: () => import('@/views/home/index.vue'),
     NotFound: () => import('@/components/NotFound.vue'),
 }
 
@@ -27,24 +26,23 @@ export function generateRoutes(menus: MenuItem[]): RouteRecordRaw[] {
 
 //转换单个菜单项为路由
 function transformMenuItemToRoute(menu: MenuItem): RouteRecordRaw | null {
-    if(!menu.path || !menu.component) {
+    if(!menu.path) {
         return null
     }
 
     const route: RouteRecordRaw = {
         path: menu.path,
-        name: menu.permName,
+        name: menu.permName || undefined,
         meta: {
-            title: menu.permName,
-            requiresAuth: true,
-            icon: menu.icon
+            title: menu.permName || menu.title || undefined,
+            requiresAuth: true
         }
-    }
+    } as RouteRecordRaw
 
     if(menu.component && menu.component === 'string') {
         route.component = componentMap[menu.component]
     } else {
-        route.component = import('@/views/Home.vue')
+        route.component = import('@/views/home/index.vue')
     }
 
     if(menu.children && menu.children.length > 0) {

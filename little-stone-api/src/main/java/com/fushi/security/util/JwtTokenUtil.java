@@ -19,11 +19,12 @@ import java.util.function.Function;
 
 @Component
 public class JwtTokenUtil {
-    @Value("${application.security.jwt.secret-key}")
+    @Value("${security.jwt.secret-key}")
     public String secretKey;
-
-    @Value("${application.security.jwt.expiration}")
+    @Value("${security.jwt.expiration}")
     public Long expiration;
+    @Value("${security.jwt.refresh-expiration}")
+    public Long refreshExpiration;
 
     private SecretKey signingKey;
     private JwtParser jwtParser;
@@ -111,16 +112,20 @@ public class JwtTokenUtil {
 
     //生成 token
     public String generateToken(String username) {
-        Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, username);
-    }
-
-    private String doGenerateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
+                .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    //生成 refresh token
+    public String generateRefreshToken(String username) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + refreshExpiration))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

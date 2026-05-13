@@ -1,7 +1,6 @@
 server:
   port: 9000
 
-
 spring:
   application:
     name: little-stone-api
@@ -11,9 +10,18 @@ spring:
     username: root
     password: fushi_00
 
+security:
+  jwt:
+    secret-key: 3R6a50IK2yPGNIvtmZTl25Ntiy8RfhLPyR6gWIYQ9Jo=
+    expiration: 86400000
+    refresh-expiration: 604800000
 
-application:
-  security:
-    jwt:
-      secret-key: 3R6a50IK2yPGNIvtmZTl25Ntiy8RfhLPyR6gWIYQ9Jo=
-      expiration: 86400000
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+  type-aliases-package: com.fushi.entity
+

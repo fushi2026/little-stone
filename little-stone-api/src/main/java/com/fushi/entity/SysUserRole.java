@@ -6,10 +6,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName("sys_role_permission")
-public class RolePermission {
+@TableName("sys_user_role")
+public class SysUserRole {
     @TableId(type= IdType.AUTO)
     private Long id;
+    private Long userId;
     private Long roleId;
-    private Long permId;
 }

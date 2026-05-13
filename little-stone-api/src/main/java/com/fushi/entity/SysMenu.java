@@ -8,16 +8,20 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@TableName("sys_role")
-public class Role {
-    @TableId(type = IdType.AUTO)
+@TableName("sys_menu")
+public class SysMenu {
+    @TableId(type= IdType.AUTO)
     private Long id;
-    private String roleName;
-    private String roleLabel;
-    private String description;
+    private String moduleCode;
+    private Long parentId;
+    private String menuName;
+    private Integer menuType;
+    private String path;
+    private String component;
+    private String icon;
+    private Integer sort;
+    private Integer visible;
     private Integer status;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
-    private Long createBy;
-    private Long updateBy;
 }

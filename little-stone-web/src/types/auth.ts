@@ -1,40 +1,46 @@
-export interface UserInfo {
-    username: string
-    realName: string
-    menuTree: any[]
-    permissions: string[]
-    roles: string[]
-    token: string
-}
-
 export interface LoginForm {
     username: string;
     password: string;
     remember?: boolean;
 }
 
+export interface RegisterForm {
+    username: string;
+    password: string;
+    confirmPassword: string;
+}
+
+export interface UserInfo {
+    username: string
+    nickname: string
+    avatar: string
+    roleList: string[]
+}
+
+export interface ModuleItem {
+    moduleCode: string
+    moduleName: string
+    icon: string
+}
+
 export interface MenuItem {
     id: number
     parentId: number
+    menuName: string
     path: string
-    name?: string
     component?: string | null
     icon?: string | null
-    title?: string
-    permName?: string
-    children?: MenuItem[]
-    permType?: number
-    status?: number
     sort?: number
+    children?: MenuItem[]
 }
 
 export interface LoginResponse {
-    menuTree: MenuItem[]
-    permissions: string[]
-    realName: string
-    roles: string[]
     token: string
-    username: string
+    refreshToken: string
+    userInfo: UserInfo
+    moduleList: ModuleItem[]
+    menuList: MenuItem[]
+    permList: string[]
 }
 
 export interface RouteMeta {

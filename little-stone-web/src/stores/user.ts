@@ -1,7 +1,15 @@
 import {defineStore} from 'pinia'
 import { ref } from 'vue'
-import type { LoginForm, UserInfo, MenuItem, LoginResponse } from '@/types/auth'
-import { setToken, getToken, clearAuthStorage, setUserInfo, getUserInfo } from '@/utils/auth'
+import type { LoginForm, UserInfo, ModuleItem, MenuItem, LoginResponse } from '@/types/auth'
+import { 
+    setToken, getToken, 
+    getRefreshToken, setRefreshToken, 
+    clearAuthStorage, 
+    setUserInfo, getUserInfo,
+    setModuleList, getModuleList,
+    setMenuList, getMenuList,
+    setPermList, getPermList
+ } from '@/utils/auth'
 import request from '@/utils/request'
 import { generateRoutes } from '@/utils/router'
 import router from '@/router'
@@ -9,10 +17,11 @@ import router from '@/router'
 
 export const useUserStore = defineStore('user', () => {
     const token = ref<string>(getToken())
+    const refreshToken = ref<string>(getRefreshToken())
     const userInfo = ref<UserInfo | null>(getUserInfo())
-    const menuTree = ref<MenuItem[]>(userInfo.value?.menuTree || [])
-    const permissions = ref<string[]>(userInfo.value?.permissions || [])
-    const roles = ref<string[]>(userInfo.value?.roles || [])
+    const moduleList = ref<ModuleItem[]>(getModuleList())
+    const menuList = ref<MenuItem[]>(getMenuList())
+    const permList = ref<string[]>(getPermList())
 
     /**
      * 登录
@@ -25,24 +34,22 @@ export const useUserStore = defineStore('user', () => {
             const loginResponse = res.data.data as LoginResponse
 
             token.value = loginResponse.token
+            refreshToken.value = loginResponse.refreshToken
 
-            userInfo.value = {
-                username: loginResponse.username,
-                realName: loginResponse.realName,
-                token: loginResponse.token,
-                menuTree: loginResponse.menuTree,
-                permissions: loginResponse.permissions, 
-                roles: loginResponse.roles,
-            }
+            userInfo.value = loginResponse.userInfo
 
-            menuTree.value = loginResponse.menuTree
-            permissions.value = loginResponse.permissions
-            roles.value = loginResponse.roles
+            moduleList.value = loginResponse.moduleList
+            menuList.value = loginResponse.menuList
+            permList.value = loginResponse.permList
 
-            setToken(loginResponse.token)
+            setToken(token.value)
+            setRefreshToken(refreshToken.value)
             setUserInfo(userInfo.value)
+            setModuleList(moduleList.value)
+            setMenuList(menuList.value)
+            setPermList(permList.value)
 
-            await setupRoutes(loginResponse.menuTree)
+            await setupRoutes(loginResponse.menuList)
         } catch (error) {
             throw new Error('Login failed');
         }
@@ -63,24 +70,25 @@ export const useUserStore = defineStore('user', () => {
     const fetchUserInfo = async (): Promise<void> => {
         try {
             const res = await request.get('/user/info')
-            const data = res.data as UserInfo
+            const loginResponse = res.data.data as LoginResponse
 
-            userInfo.value = {
-                username: data.username,
-                realName: data.realName,
-                menuTree: data.menuTree,
-                permissions: data.permissions, 
-                roles: data.roles,
-                token: token.value || '',
-            }
+            token.value = loginResponse.token
+            refreshToken.value = loginResponse.refreshToken
 
-            menuTree.value = data.menuTree
-            permissions.value = data.permissions
-            roles.value = data.roles
+            userInfo.value = loginResponse.userInfo
 
+            moduleList.value = loginResponse.moduleList
+            menuList.value = loginResponse.menuList
+            permList.value = loginResponse.permList
+
+            setToken(token.value)
+            setRefreshToken(refreshToken.value)
             setUserInfo(userInfo.value)
+            setModuleList(moduleList.value)
+            setMenuList(menuList.value)
+            setPermList(permList.value)
 
-            await setupRoutes(data.menuTree)
+            await setupRoutes(loginResponse.menuList)
         } catch (error) {
             throw new Error('Failed to fetch user info')
         }
@@ -91,10 +99,11 @@ export const useUserStore = defineStore('user', () => {
      */
     const logout = (): void => {
         token.value = ''
+        refreshToken.value = ''
         userInfo.value = null
-        menuTree.value = []
-        permissions.value = []
-        roles.value = []
+        moduleList.value = []
+        menuList.value = []
+        permList.value = []
 
         clearAuthStorage()
 
@@ -106,32 +115,38 @@ export const useUserStore = defineStore('user', () => {
      */
     const resetUser = (): void => {
         token.value = ''
+        refreshToken.value = ''
         userInfo.value = null
-        menuTree.value = []
-        permissions.value = []
-        roles.value = []
+        moduleList.value = []
+        menuList.value = []
+        permList.value = []
+
+        clearAuthStorage()
+
+        router.push('/login')
     }
 
     /**
      * 检查权限
      */
-    const hasPermission = (permission: string): boolean => {
-        return permissions.value.includes(permission)
+    const hasPermission = (perm: string): boolean => {
+        return permList.value.includes(perm)
     }
 
     /**
      * 检查角色
      */
     const hasRole = (role: string): boolean => {
-        return roles.value.includes(role)
+        return userInfo.value?.roleList.includes(role) || false
     }
 
     return {
         token,
+        refreshToken,
         userInfo,
-        menuTree,
-        permissions,
-        roles,
+        moduleList,
+        menuList,
+        permList,
         hasPermission,
         hasRole,
         setupRoutes,

@@ -14,16 +14,16 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'home',
         name: 'Home',
-        component: () => import('@/views/Home.vue'),
+        component: () => import('@/views/home/index.vue'),
         meta: { title: '首页', requiresAuth: true }
       }
     ]
   },
   {
-        path: '/login',
-        name: 'Login',
-        component: () => import('@/views/Login.vue'),
-        meta: { title: '登录', requiresAuth: false }
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/Login.vue'),
+    meta: { title: '登录', requiresAuth: false }
   },
   {
     path: '/:pathMatch(.*)*',
@@ -39,7 +39,7 @@ export const router = createRouter({
   scrollBehavior: () => ({ top: 0 }) 
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _from, next) => {
  if(isLogin() && to.name === 'Login') {
     next({ path: '/' })
     return

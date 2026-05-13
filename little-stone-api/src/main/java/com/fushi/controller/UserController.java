@@ -3,8 +3,8 @@ package com.fushi.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.fushi.common.response.ApiResponse;
 import com.fushi.dto.UserListDTO;
-import com.fushi.entity.User;
-import com.fushi.mapper.UserMapper;
+import com.fushi.entity.SysUser;
+import com.fushi.mapper.SysUserMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
     @Autowired
-    private UserMapper userMapper;
+    private SysUserMapper userMapper;
 
     @PreAuthorize("hasAuthority('sys:user:list')")
     @Operation(summary = "获取用户列表", description = "获取用户列表")
     @GetMapping("/list")
     public ApiResponse<List<UserListDTO>> findAll(){
-        List<User> list = userMapper.selectList(null);
+        List<SysUser> list = userMapper.selectList(null);
 
         List<UserListDTO> listDTO = BeanUtil.copyToList(list, UserListDTO.class);
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fushi.mapper.SysPermMapper">
+    <select id="selectPermKeysByUserId" resultType="java.lang.String">
+        SELECT DISTINCT p.perm_key
+        FROM sys_perm p
+        JOIN sys_role_perm rp ON p.id = rp.perm_id
+        JOIN sys_user_role ur ON rp.role_id = ur.role_id
+        WHERE ur.user_id = #{userId}
+        AND p.status = 1
+        AND p.perm_key IS NOT NULL
+    </select>
+</mapper>

@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@TableName("sys_permission")
-public class Permission {
+@TableName("sys_perm")
+public class SysPerm {
     @TableId(type= IdType.AUTO)
     private Long id;
     private String permName;
@@ -30,5 +30,5 @@ public class Permission {
     private Long updateBy;
 
     @TableField(exist = false)
-    private List<Permission> children = new ArrayList<>();
+    private List<SysPerm> children = new ArrayList<>();
 }

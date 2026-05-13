@@ -8,16 +8,16 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@TableName("sys_user")
-public class User {
+@TableName("sys_module")
+public class SysModule {
     @TableId(type= IdType.AUTO)
     private Long id;
-    private String username;
-    private String realName;
-    private String password;
-    private String email;
-    private String phone;
+    private String moduleCode;
+    private String moduleName;
+    private Integer sort;
+    private String icon;
     private Integer status;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
+    private String remark;
 }
