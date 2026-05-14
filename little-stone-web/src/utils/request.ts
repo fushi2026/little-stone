@@ -34,6 +34,11 @@ service.interceptors.request.use(
     }
 )
 
+// 用于防止重复刷新 Token
+let isRefreshing = false;
+let pendingRequests: Array<(token: string) => void> = [];
+
+// 响应拦截器
 service.interceptors.response.use(
   async (response: AxiosResponse<ApiResponse>): Promise<AxiosResponse<ApiResponse>> => {
     const res = response.data;
@@ -43,19 +48,82 @@ service.interceptors.response.use(
     }
     return response;
   },
-  (error) => {
-    if(error.response?.status === 401) {
+  async (error) => {
+    const { response, config } = error;
+    
+    // 处理 401 未授权错误
+    if (response?.status === 401) {
+      // 检查是否是刷新 Token 接口本身的错误
+      if (config.url?.includes('/auth/refresh')) {
+        handleTokenExpired();
+        return Promise.reject(error);
+      }
+
       const userStore = useUserStore();
-      userStore.resetUser();
-      clearAuthStorage();
-      router.push({ name: 'Login' });
-      ElMessage.warning('登录已过期，请重新登录！');
+
+      // 如果正在刷新 Token，将请求加入队列
+      if (isRefreshing) {
+        return new Promise((resolve) => {
+          pendingRequests.push((newToken: string) => {
+            if (config.headers) {
+              config.headers['Authorization'] = `Bearer ${newToken}`;
+            }
+            resolve(service(config));
+          });
+        });
+      }
+
+      isRefreshing = true;
+
+      try {
+        // 尝试刷新 Token
+        const newToken = await userStore.refreshAccessToken();
+
+        if (newToken) {
+          // 更新当前请求的 Token
+          if (config.headers) {
+            config.headers['Authorization'] = `Bearer ${newToken}`;
+          }
+
+          // 重新发起当前请求
+          const result = await service(config);
+
+          // 处理队列中的请求
+          pendingRequests.forEach((callback) => callback(newToken));
+          pendingRequests = [];
+
+          return result;
+        } else {
+          handleTokenExpired();
+        }
+      } catch (refreshError) {
+        handleTokenExpired();
+        return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
+      }
+    } else if (response?.status === 403) {
+      ElMessage.error('您没有权限访问该资源！');
+    } else if (response?.status === 404) {
+      ElMessage.error('请求的资源不存在！');
+    } else if (response?.status >= 500) {
+      ElMessage.error('服务器内部错误，请稍后重试！');
     } else {
-      ElMessage.error(error.message || '响应接收失败，请检查网络！');
+      ElMessage.error(error.message || '请求失败，请检查网络！');
     }
+
     return Promise.reject(error);
   }
 )
+
+// 处理 Token 过期
+function handleTokenExpired(): void {
+  const userStore = useUserStore();
+  userStore.resetUser();
+  clearAuthStorage();
+  router.push({ name: 'Login' });
+  ElMessage.warning('登录已过期，请重新登录！');
+}
 
 export const request = {
     get<T = any>(url: string, params?: object): Promise<ApiResponse<T>> {
@@ -63,6 +131,12 @@ export const request = {
     },
     post<T = any>(url: string, data?: object): Promise<ApiResponse<T>> {
         return service.post(url, data);
+    },
+    put<T = any>(url: string, data?: object): Promise<ApiResponse<T>> {
+        return service.put(url, data);
+    },
+    delete<T = any>(url: string, params?: object): Promise<ApiResponse<T>> {
+        return service.delete(url, { params });
     }
 }
 

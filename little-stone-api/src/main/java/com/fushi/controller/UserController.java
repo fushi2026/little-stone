@@ -20,19 +20,17 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
     @Autowired
-    private SysUserMapper userMapper;
+    private SysUserMapper sysUserMapper;
 
     @PreAuthorize("hasAuthority('sys:user:list')")
     @Operation(summary = "获取用户列表", description = "获取用户列表")
     @GetMapping("/list")
     public ApiResponse<List<UserListDTO>> findAll(){
-        List<SysUser> list = userMapper.selectList(null);
+        List<SysUser> list = sysUserMapper.selectList(null);
 
         List<UserListDTO> listDTO = BeanUtil.copyToList(list, UserListDTO.class);
 
         return ApiResponse.success(listDTO);
     }
-
-
 
 }

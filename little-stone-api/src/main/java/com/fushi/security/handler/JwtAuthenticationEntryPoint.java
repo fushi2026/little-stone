@@ -2,7 +2,6 @@ package com.fushi.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fushi.common.response.ApiResponse;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -21,23 +20,16 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-            throws IOException, ServletException {
-        try {
-            logger.error("认证失败：{}, 异常类型: {}", authException.getMessage(), authException.getClass(), authException);
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
+        logger.error("认证失败：{}, 异常类型: {}", authException.getMessage(), request.getRequestURI());
 
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.setCharacterEncoding("UTF-8");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding("UTF-8");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-            PrintWriter writer = response.getWriter();
+        try(PrintWriter writer = response.getWriter()) {
             writer.write(objectMapper.writeValueAsString(ApiResponse.error(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage())));
             writer.flush();
-
-            response.flushBuffer();
-        } catch (Exception e) {
-            logger.error("响应认证失败信息时出错！", e);
-            throw new ServletException("处理认证失败响应出错！", e);
         }
     }
 }

@@ -111,6 +111,34 @@ export const useUserStore = defineStore('user', () => {
     }
 
     /**
+     * 刷新 Token
+     */
+    const refreshAccessToken = async (): Promise<string | null> => {
+        if (!refreshToken.value) {
+            return null
+        }
+
+        try {
+            const res = await request.post('/auth/refresh', {
+                refreshToken: refreshToken.value
+            })
+
+            const data = res.data.data
+            token.value = data.token
+            refreshToken.value = data.refreshToken
+
+            setToken(token.value)
+            setRefreshToken(refreshToken.value)
+
+            return token.value
+        } catch (error) {
+            console.error('Token refresh failed:', error)
+            resetUser()
+            return null
+        }
+    }
+
+    /**
      * 重置用户状态（Token过期时调用）
      */
     const resetUser = (): void => {
@@ -152,6 +180,7 @@ export const useUserStore = defineStore('user', () => {
         setupRoutes,
         login,
         fetchUserInfo,
+        refreshAccessToken,
         logout,
         resetUser
     }

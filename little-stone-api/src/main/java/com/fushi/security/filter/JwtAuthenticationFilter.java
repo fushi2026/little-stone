@@ -1,6 +1,5 @@
 package com.fushi.security.filter;
 
-import com.fushi.security.handler.JwtAuthenticationEntryPoint;
 import com.fushi.security.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -26,8 +25,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private UserDetailsService userDetailsService;
-    @Autowired
-    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Override
     protected void doFilterInternal(
@@ -48,8 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String header = request.getHeader("Authorization");
         if(header == null || !header.startsWith("Bearer ")) {
-            jwtAuthenticationEntryPoint.commence(request, response, new BadCredentialsException("无效的token：缺少Authorization头或格式错误！"));
-            return;
+            throw new BadCredentialsException("无效的token：缺少Authorization头或格式错误！");
         }
 
         String token = header.substring(7).trim();
@@ -59,26 +55,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             username = jwtTokenUtil.getUsernameFromToken(token);
         } catch (ExpiredJwtException e) {
             logger.error("token过期");
-            jwtAuthenticationEntryPoint.commence(request, response, new CredentialsExpiredException("token过期"));
-            return;
+            throw new CredentialsExpiredException("token已过期");
         } catch (Exception e) {
             logger.error("token验证失效：" + e.getMessage());
-            jwtAuthenticationEntryPoint.commence(request, response, new BadCredentialsException("无效的token"));
-            return;
+            throw new BadCredentialsException("无效的token");
         }
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             try {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 if(jwtTokenUtil.validateToken(token, userDetails)) {
-                    // 4、构建认证信息（包含用户权限），设置到Security上下文
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             } catch (Exception e) {
-                jwtAuthenticationEntryPoint.commence(request, response, new BadCredentialsException(e.getMessage()));
-                return;
+                throw new BadCredentialsException("无效的token");
             }
         }
 

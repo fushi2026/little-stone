@@ -112,6 +112,33 @@ public class SysUserServiceImpl implements SysUserService {
         }
     }
 
+    @Override
+    public RefreshTokenResponseDTO refreshToken(String refreshToken) throws Exception {
+        // 验证 refresh token 是否有效
+        if (refreshToken == null || refreshToken.trim().isEmpty()) {
+            throw new Exception("Refresh token 不能为空");
+        }
+
+        // 检查 refresh token 是否过期
+        if (jwtUtils.isTokenExpired(refreshToken)) {
+            throw new Exception("Refresh token 已过期，请重新登录");
+        }
+
+        // 从 refresh token 中获取用户名
+        String username = jwtUtils.getUsernameFromToken(refreshToken);
+        
+        // 验证用户是否存在
+        SysUser sysUser = sysUserMapper.findByUsername(username)
+                .orElseThrow(() -> new Exception("用户不存在"));
+
+        // 生成新的 token 和 refresh token
+        RefreshTokenResponseDTO responseDTO = new RefreshTokenResponseDTO();
+        responseDTO.setToken(jwtUtils.generateToken(username));
+        responseDTO.setRefreshToken(jwtUtils.generateRefreshToken(username));
+        
+        return responseDTO;
+    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void register(RegisterRequestDTO requestDTO) {

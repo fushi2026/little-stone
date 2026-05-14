@@ -2,9 +2,7 @@ package com.fushi.controller;
 
 import com.fushi.common.enums.ResultCode;
 import com.fushi.common.response.ApiResponse;
-import com.fushi.dto.auth.LoginRequestDTO;
-import com.fushi.dto.auth.LoginResponseDTO;
-import com.fushi.dto.auth.RegisterRequestDTO;
+import com.fushi.dto.auth.*;
 import com.fushi.service.SysUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -52,4 +50,24 @@ public class AuthController {
             return ApiResponse.error(ResultCode.INTERNAL_ERROR.getCode(), e.getMessage());
         }
     }
+
+    @PostMapping("/refresh")
+    public ApiResponse<RefreshTokenResponseDTO> refreshToken(@Valid @RequestBody RefreshTokenRequestDTO requestDTO) {
+        try {
+            // 验证 refresh token 是否为空
+            if (requestDTO.getRefreshToken() == null || requestDTO.getRefreshToken().trim().isEmpty()) {
+                return ApiResponse.error(ResultCode.PARAM_ERROR.getCode(), "Refresh token 不能为空");
+            }
+
+            // 调用服务层刷新 token
+            RefreshTokenResponseDTO responseDTO = sysUserService.refreshToken(requestDTO.getRefreshToken());
+
+            log.info("用户刷新 token 成功！");
+            return ApiResponse.success(responseDTO);
+        } catch (Exception e) {
+            log.error("刷新 token 异常！", e);
+            return ApiResponse.error(ResultCode.INTERNAL_ERROR.getCode(), e.getMessage());
+        }
+    }
+
 }
