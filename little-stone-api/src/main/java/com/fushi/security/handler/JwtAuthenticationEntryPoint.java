@@ -21,14 +21,14 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
-        logger.error("认证失败：{}, 异常类型: {}", authException.getMessage(), request.getRequestURI());
+        logger.error("认证失败：{}, URI: {}", authException.getMessage(), request.getRequestURI());
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
         try(PrintWriter writer = response.getWriter()) {
-            writer.write(objectMapper.writeValueAsString(ApiResponse.error(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage())));
+            writer.write(objectMapper.writeValueAsString(ApiResponse.error(HttpServletResponse.SC_UNAUTHORIZED, "Token无效或已过期，请重新登录")));
             writer.flush();
         }
     }

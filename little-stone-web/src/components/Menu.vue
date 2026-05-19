@@ -21,26 +21,26 @@
           <template #title>
             <el-icon v-if="menu.icon"><component :is="menu.icon" /></el-icon>
             <el-icon v-else><Menu /></el-icon>
-            <span>{{ menu.permName }}</span>
+            <span>{{ menu.menuName }}</span>
           </template>
           <template v-for="child in menu.children" :key="child.id">
             <el-menu-item 
-              v-if="child.permType === 1" 
+              v-if="child.component" 
               :index="child.path.startsWith('/api') ? child.path.replace('/api', '') : child.path"
             >
               <el-icon v-if="child.icon"><component :is="child.icon" /></el-icon>
-              <span>{{ child.permName }}</span>
+              <span>{{ child.menuName }}</span>
             </el-menu-item>
           </template>
         </el-sub-menu>
         <!-- 没有子菜单的情况 -->
         <el-menu-item 
-          v-else-if="menu.permType === 1" 
+          v-else-if="menu.component" 
           :index="menu.path.startsWith('/api') ? menu.path.replace('/api', '') : menu.path"
         >
           <el-icon v-if="menu.icon"><component :is="menu.icon" /></el-icon>
           <el-icon v-else><Menu /></el-icon>
-          <template #title>{{ menu.permName }}</template>
+          <template #title>{{ menu.menuName }}</template>
         </el-menu-item>
       </template>
     </el-menu>
@@ -58,7 +58,7 @@ const isCollapse = ref(false)
 
 // 动态菜单项
 const menuList = computed(() => {
-  return userStore.menuTree || []
+  return userStore.menuList || []
 })
 
 // 当前激活的菜单
@@ -67,7 +67,7 @@ const activeMenu = computed(() => {
 })
 
 onMounted(() => {
-  console.log(userStore.menuTree)
+  console.log(userStore.menuList)
   console.log(userStore.userInfo)
 })
 

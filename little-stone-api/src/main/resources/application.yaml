@@ -4,11 +4,29 @@ server:
 spring:
   application:
     name: little-stone-api
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/little_stone?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&rewriteBatchedStatements=true
     username: root
     password: fushi_00
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 
+      database: 0
+      timeout: 10000ms
+      lettuce:
+        pool:
+          max-active: 200
+          max-idle: 20
+          min-idle: 5
+          max-wait: -1ms
 
 security:
   jwt:
@@ -24,4 +42,8 @@ mybatis-plus:
     db-config:
       id-type: auto
   type-aliases-package: com.fushi.entity
+
+flowable:
+  database-schema-update: true
+  async-executor-activate: false
 

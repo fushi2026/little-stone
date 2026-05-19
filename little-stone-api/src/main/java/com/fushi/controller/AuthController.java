@@ -4,13 +4,11 @@ import com.fushi.common.enums.ResultCode;
 import com.fushi.common.response.ApiResponse;
 import com.fushi.dto.auth.*;
 import com.fushi.service.SysUserService;
+import com.fushi.service.PasswordService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -18,13 +16,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
     private final SysUserService sysUserService;
+    private final PasswordService passwordService;
+
+    @GetMapping("/salt")
+    public ApiResponse<SaltResponseDTO> getSalt(@Valid SaltRequestDTO requestDTO) {
+        try {
+            SaltResponseDTO responseDTO = passwordService.getSalt(requestDTO.getUsername());
+
+            log.info("为用户[{}]生成密码盐成功", requestDTO.getUsername());
+            return ApiResponse.success(responseDTO);
+        } catch (Exception e) {
+            log.error("为用户[{}]生成密码盐异常！", requestDTO.getUsername(), e);
+            return ApiResponse.error(ResultCode.INTERNAL_ERROR.getCode(), "生成盐失败");
+        }
+    }
 
     @PostMapping("/login")
     public ApiResponse<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO requestDTO) {
         try {
             LoginResponseDTO responseDTO = sysUserService.login(requestDTO);
 
-            log.info("用户[{}]登录成功！", requestDTO.getUsername());
+            log.info("用户[{}]登录成功！设备指纹: {}", requestDTO.getUsername(), requestDTO.getDeviceFingerprint());
             return ApiResponse.success(responseDTO);
         } catch (Exception e) {
             log.error("用户[{}]登录异常！", requestDTO.getUsername(), e);
@@ -54,20 +66,26 @@ public class AuthController {
     @PostMapping("/refresh")
     public ApiResponse<RefreshTokenResponseDTO> refreshToken(@Valid @RequestBody RefreshTokenRequestDTO requestDTO) {
         try {
-            // 验证 refresh token 是否为空
-            if (requestDTO.getRefreshToken() == null || requestDTO.getRefreshToken().trim().isEmpty()) {
-                return ApiResponse.error(ResultCode.PARAM_ERROR.getCode(), "Refresh token 不能为空");
-            }
+            RefreshTokenResponseDTO responseDTO = sysUserService.refreshToken(requestDTO.getDeviceFingerprint());
 
-            // 调用服务层刷新 token
-            RefreshTokenResponseDTO responseDTO = sysUserService.refreshToken(requestDTO.getRefreshToken());
-
-            log.info("用户刷新 token 成功！");
+            log.info("用户刷新 token 成功！设备指纹: {}", requestDTO.getDeviceFingerprint());
             return ApiResponse.success(responseDTO);
         } catch (Exception e) {
             log.error("刷新 token 异常！", e);
-            return ApiResponse.error(ResultCode.INTERNAL_ERROR.getCode(), e.getMessage());
+            return ApiResponse.error(ResultCode.UNAUTHORIZED.getCode(), e.getMessage());
         }
     }
 
+    @PostMapping("/logout")
+    public ApiResponse<?> logout(@Valid @RequestBody RefreshTokenRequestDTO requestDTO) {
+        try {
+            sysUserService.logout(requestDTO.getDeviceFingerprint());
+
+            log.info("用户登出成功！设备指纹: {}", requestDTO.getDeviceFingerprint());
+            return ApiResponse.success("登出成功");
+        } catch (Exception e) {
+            log.error("用户登出异常！", e);
+            return ApiResponse.error(ResultCode.INTERNAL_ERROR.getCode(), e.getMessage());
+        }
+    }
 }

@@ -12,9 +12,11 @@ import java.util.Optional;
 public interface SysUserService {
     public LoginResponseDTO login(LoginRequestDTO requestDTO) throws Exception;
 
-    public RefreshTokenResponseDTO refreshToken(String refreshToken) throws Exception;
+    public RefreshTokenResponseDTO refreshToken(String deviceFingerprint) throws Exception;
 
-    public void register(RegisterRequestDTO requestDTO);
+    public void logout(String deviceFingerprint) throws Exception;
+
+    public void register(RegisterRequestDTO requestDTO) throws Exception;
 
     public Optional<SysUser> findByUsername(@NotBlank(message = "用户名不能为空") String username);
 }

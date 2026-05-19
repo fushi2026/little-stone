@@ -2,12 +2,19 @@ export interface LoginForm {
     username: string;
     password: string;
     remember?: boolean;
+    deviceFingerprint?: string;
+}
+
+export interface SaltResponse {
+    nonce: string
+    salt: string
 }
 
 export interface RegisterForm {
     username: string;
     password: string;
     confirmPassword: string;
+    deviceFingerprint?: string;
 }
 
 export interface UserInfo {
@@ -36,11 +43,14 @@ export interface MenuItem {
 
 export interface LoginResponse {
     token: string
-    refreshToken: string
     userInfo: UserInfo
     moduleList: ModuleItem[]
     menuList: MenuItem[]
     permList: string[]
+}
+
+export interface RefreshTokenResponse {
+    token: string
 }
 
 export interface RouteMeta {

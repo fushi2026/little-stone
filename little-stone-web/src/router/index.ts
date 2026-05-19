@@ -16,6 +16,18 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Home',
         component: () => import('@/views/home/index.vue'),
         meta: { title: '首页', requiresAuth: true }
+      },
+      {
+        path: 'form/list',
+        name: 'FormList',
+        component: () => import('@/views/form/FormList.vue'),
+        meta: { title: '表单管理', requiresAuth: true }
+      },
+      {
+        path: 'form/process',
+        name: 'ProcessList',
+        component: () => import('@/views/form/ProcessList.vue'),
+        meta: { title: '流程管理', requiresAuth: true }
       }
     ]
   },

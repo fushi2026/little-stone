@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @TableName("sys_perm")
 public class SysPerm {
-    @TableId(type= IdType.AUTO)
+    @TableId(type = IdType.AUTO)
     private Long id;
     private String permName;
     private String permKey;

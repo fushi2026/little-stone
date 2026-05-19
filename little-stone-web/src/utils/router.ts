@@ -13,11 +13,9 @@ export function generateRoutes(menus: MenuItem[]): RouteRecordRaw[] {
     const routes: RouteRecordRaw[] = []
 
     menus.forEach(menu => {
-        if(menu.permType === 1) {
-            const route = transformMenuItemToRoute(menu)
-            if(route) {
-                routes.push(route)
-            }
+        const route = transformMenuItemToRoute(menu)
+        if(route) {
+            routes.push(route)
         }
     })
 
@@ -32,9 +30,9 @@ function transformMenuItemToRoute(menu: MenuItem): RouteRecordRaw | null {
 
     const route: RouteRecordRaw = {
         path: menu.path,
-        name: menu.permName || undefined,
+        name: undefined,
         meta: {
-            title: menu.permName || menu.title || undefined,
+            title: menu.menuName || undefined,
             requiresAuth: true
         }
     } as RouteRecordRaw

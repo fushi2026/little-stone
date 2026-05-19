@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import type { AxiosInstance, AxiosResponse, InternalAxiosRequestConfig, AxiosRequestConfig } from "axios";
 import { getToken, clearAuthStorage } from "@/utils/auth";
 import { useUserStore } from "@/stores/user";
 import { router } from "@/router";
@@ -126,17 +126,17 @@ function handleTokenExpired(): void {
 }
 
 export const request = {
-    get<T = any>(url: string, params?: object): Promise<ApiResponse<T>> {
-        return service.get(url, { params });
+    get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+        return service.get(url, config).then(res => res.data);
     },
     post<T = any>(url: string, data?: object): Promise<ApiResponse<T>> {
-        return service.post(url, data);
+        return service.post(url, data).then(res => res.data);
     },
     put<T = any>(url: string, data?: object): Promise<ApiResponse<T>> {
-        return service.put(url, data);
+        return service.put(url, data).then(res => res.data);
     },
-    delete<T = any>(url: string, params?: object): Promise<ApiResponse<T>> {
-        return service.delete(url, { params });
+    delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+        return service.delete(url, config).then(res => res.data);
     }
 }
 

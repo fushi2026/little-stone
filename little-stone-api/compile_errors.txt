@@ -1,0 +1,678 @@
+﻿.\mvnw : WARNING: Final field _cipher in class org.sonatype.plexus.components.s
+ec.dispatcher.DefaultSecDispatcher has been mutated reflectively by class org.e
+clipse.sisu.bean.BeanPropertyField in unnamed module @5e4c8041 (file:/C:/Users/
+fushi/.m2/wrapper/dists/apache-maven-3.9.12/59fe215c0ad6947fea90184bf7add084544
+567b927287592651fda3782e0e798/lib/org.eclipse.sisu.inject-0.9.0.M4.jar)
+所在位置 行:1 字符: 63
++ ... ttle-stone\little-stone\little-stone-api; .\mvnw compile 2>&1 | Out-F ...
++                                               ~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: Final ...t-0.9.0.M4.jar) 
+   :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+WARNING: Use --enable-final-field-mutation=ALL-UNNAMED to avoid a warning
+WARNING: Mutating final fields will be blocked in a future release unless final
+ field mutation is enabled
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.fushi:little-stone-api >---------------------
+[INFO] Building little-stone-api 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ little-stone-api ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 5 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ little-stone-api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 75 source files with javac [debug parameters release 17] to target\classes
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/config/RedisConfig.java:[23,9] org.springframework.data.redis.serializer 中的 org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer 已过时, 且标记为待删除
+[WARNING] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/config/RedisConfig.java:[23,66] org.springframework.data.redis.serializer 中的 org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer 已过时, 且标记为待删除
+[WARNING] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/config/RedisConfig.java:[28,23] org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer 中的 setObjectMapper(com.fasterxml.jackson.databind.ObjectMapper) 已过时, 且标记为待删除
+[INFO] 3 warnings 
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/common/response/ApiResponse.java:[17,16] 无法推断com.fushi.common.response.ApiResponse<>的类型参数
+  原因: 无法推断类型变量 T
+    (实际参数列表和形式参数列表长度不同)
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/common/response/ApiResponse.java:[21,16] 无法推断com.fushi.common.response.ApiResponse<>的类型参数
+  原因: 无法推断类型变量 T
+    (实际参数列表和形式参数列表长度不同)
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/common/response/ApiResponse.java:[25,16] 无法推断com.fushi.common.response.ApiResponse<>的类型参数
+  原因: 无法推断类型变量 T
+    (实际参数列表和形式参数列表长度不同)
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[24,77] 找不到符号
+  符号:   方法 getUsername()
+  位置: 类型为com.fushi.dto.auth.SaltRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[26,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[26,50] 找不到符号
+  符号:   方法 getUsername()
+  位置: 类型为com.fushi.dto.auth.SaltRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[29,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[29,52] 找不到符号
+  符号:   方法 getUsername()
+  位置: 类型为com.fushi.dto.auth.SaltRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[30,63] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[39,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[39,55] 找不到符号
+  符号:   方法 getUsername()
+  位置: 类型为com.fushi.dto.auth.LoginRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[39,81] 找不到符号
+  符号:   方法 getDeviceFingerprint()
+  位置: 类型为com.fushi.dto.auth.LoginRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[42,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[42,48] 找不到符号
+  符号:   方法 getUsername()
+  位置: 类型为com.fushi.dto.auth.LoginRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[43,63] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[51,57] 找不到符号
+  符号:   方法 getUsername()
+  位置: 类型为com.fushi.dto.auth.RegisterRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[52,63] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 USER_EXIST
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[58,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[58,46] 找不到符号
+  符号:   方法 getUsername()
+  位置: 类型为com.fushi.dto.auth.RegisterRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[61,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[61,48] 找不到符号
+  符号:   方法 getUsername()
+  位置: 类型为com.fushi.dto.auth.RegisterRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[62,63] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[69,89] 找不到符号
+  符号:   方法 getDeviceFingerprint()
+  位置: 类型为com.fushi.dto.auth.RefreshTokenRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[71,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[71,58] 找不到符号
+  符号:   方法 getDeviceFingerprint()
+  位置: 类型为com.fushi.dto.auth.RefreshTokenRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[74,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[75,61] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 UNAUTHORIZED
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[82,45] 找不到符号
+  符号:   方法 getDeviceFingerprint()
+  位置: 类型为com.fushi.dto.auth.RefreshTokenRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[84,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[84,51] 找不到符号
+  符号:   方法 getDeviceFingerprint()
+  位置: 类型为com.fushi.dto.auth.RefreshTokenRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[87,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[88,63] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[49,58] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 NOT_FOUND
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[58,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[58,48] 找不到符号
+  符号:   方法 getName()
+  位置: 类型为com.fushi.entity.FormDefinition的变量 definition
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[61,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[62,63] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[72,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[75,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[76,63] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[84,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[87,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[88,63] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[96,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[96,46] 找不到符号
+  符号:   方法 getId()
+  位置: 类型为com.fushi.entity.FormInstance的变量 instance
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[99,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[100,63] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[108,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[108,46] 找不到符号
+  符号:   方法 getId()
+  位置: 类型为com.fushi.entity.FormInstance的变量 instance
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[111,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[112,63] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[120,58] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 NOT_FOUND
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[137,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[137,48] 找不到符号
+  符号:   方法 getName()
+  位置: 类型为com.fushi.entity.ProcessDefinition的变量 definition
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[140,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[141,63] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[154,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[154,40] 找不到符号
+  符号:   方法 getId()
+  位置: 类型为com.fushi.entity.Task的变量 task
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[157,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[158,63] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysUserMapper.java:[11,83] 方法引用无效
+  找不到符号
+    符号:   方法 getUsername()
+    位置: 类 com.fushi.entity.SysUser
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/handler/GlobalExceptionHandler.java:[21,9] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.handler.GlobalExceptionHandler
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/handler/GlobalExceptionHandler.java:[28,9] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.handler.GlobalExceptionHandler
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/handler/GlobalExceptionHandler.java:[35,9] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.handler.GlobalExceptionHandler
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRoleMapper.java:[17,25] 方法引用无效
+  找不到符号
+    符号:   方法 getRoleName()
+    位置: 类 com.fushi.entity.SysRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRoleMapper.java:[18,21] 方法引用无效
+  找不到符号
+    符号:   方法 getId()
+    位置: 类 com.fushi.entity.SysRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRoleMapper.java:[19,21] 方法引用无效
+  找不到符号
+    符号:   方法 getStatus()
+    位置: 类 com.fushi.entity.SysRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRoleMapper.java:[23,35] 方法引用无效
+  找不到符号
+    符号:   方法 getRoleName()
+    位置: 类 com.fushi.entity.SysRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRolePermMapper.java:[16,25] 方法引用无效
+  找不到符号
+    符号:   方法 getPermId()
+    位置: 类 com.fushi.entity.SysRolePerm
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRolePermMapper.java:[17,21] 方法引用无效
+  找不到符号
+    符号:   方法 getRoleId()
+    位置: 类 com.fushi.entity.SysRolePerm
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRolePermMapper.java:[21,36] 方法引用无效
+  找不到符号
+    符号:   方法 getPermId()
+    位置: 类 com.fushi.entity.SysRolePerm
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysUserRoleMapper.java:[17,21] 方法引用无效
+  找不到符号
+    符号:   方法 getUserId()
+    位置: 类 com.fushi.entity.SysUserRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysUserRoleMapper.java:[18,25] 方法引用无效
+  找不到符号
+    符号:   方法 getRoleId()
+    位置: 类 com.fushi.entity.SysUserRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysUserRoleMapper.java:[22,39] 方法引用无效
+  找不到符号
+    符号:   方法 getRoleId()
+    位置: 类 com.fushi.entity.SysUserRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[37,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.security.service.UserDetailsServiceImpl
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[41,19] 找不到符号
+  符号:   方法 getStatus()
+  位置: 类型为com.fushi.entity.SysUser的变量 sysUser
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[42,13] 找不到符号
+  符号:   变量 log
+  位置: 类 com.fushi.security.service.UserDetailsServiceImpl
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[49,77] 找不到符号
+  符号:   方法 getId()
+  位置: 类型为com.fushi.entity.SysUser的变量 sysUser
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[54,79] 找不到符号
+  符号:   方法 getId()
+  位置: 类型为com.fushi.entity.SysUser的变量 sysUser
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[60,24] 找不到符号
+  符号:   方法 getUsername()
+  位置: 类型为com.fushi.entity.SysUser的变量 sysUser
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[61,24] 找不到符号
+  符号:   方法 getPassword()
+  位置: 类型为com.fushi.entity.SysUser的变量 sysUser
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[26,38] 找不到符号
+  符号:   方法 getName()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[27,38] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[28,45] 找不到符号
+  符号:   方法 getDescription()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[30,76] 找不到符号
+  符号:   方法 getFields()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[31,82] 找不到符号
+  符号:   方法 getLayoutConfig()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[35,19] 找不到符号
+  符号:   方法 setStatus(requestDTO[...]) : 1)
+  位置: 类型为com.fushi.entity.FormDefinition的变量 definition
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[35,40] 找不到符号
+  符号:   方法 getStatus()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[35,73] 找不到符号
+  符号:   方法 getStatus()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[36,19] 找不到符号
+  符号:   方法 setCreatorId(java.lang.Long)
+  位置: 类型为com.fushi.entity.FormDefinition的变量 definition
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[37,19] 找不到符号
+  符号:   方法 setCreateTime(java.time.LocalDateTime)
+  位置: 类型为com.fushi.entity.FormDefinition的变量 definition
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[38,19] 找不到符号
+  符号:   方法 setUpdateTime(java.time.LocalDateTime)
+  位置: 类型为com.fushi.entity.FormDefinition的变量 definition
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[49,38] 找不到符号
+  符号:   方法 getName()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[50,38] 找不到符号
+  符号:   方法 getCode()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[51,45] 找不到符号
+  符号:   方法 getDescription()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[53,76] 找不到符号
+  符号:   方法 getFields()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[54,82] 找不到符号
+  符号:   方法 getLayoutConfig()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[58,23] 找不到符号
+  符号:   方法 getStatus()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[59,44] 找不到符号
+  符号:   方法 getStatus()
+  位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[61,19] 找不到符号
+  符号:   方法 setUpdateTime(java.time.LocalDateTime)
+  位置: 类型为com.fushi.entity.FormDefinition的变量 definition
+[INFO] 100 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.227 s
+[INFO] Finished at: 2026-05-18T10:09:15+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project little-stone-api: Compilation failure: Compilation failure: 
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/common/response/ApiResponse.java:[17,16] 无法推断com.fushi.common.response.ApiResponse<>的类型参数
+[ERROR]   原因: 无法推断类型变量 T
+[ERROR]     (实际参数列表和形式参数列表长度不同)
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/common/response/ApiResponse.java:[21,16] 无法推断com.fushi.common.response.ApiResponse<>的类型参数
+[ERROR]   原因: 无法推断类型变量 T
+[ERROR]     (实际参数列表和形式参数列表长度不同)
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/common/response/ApiResponse.java:[25,16] 无法推断com.fushi.common.response.ApiResponse<>的类型参数
+[ERROR]   原因: 无法推断类型变量 T
+[ERROR]     (实际参数列表和形式参数列表长度不同)
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[24,77] 找不到符号
+[ERROR]   符号:   方法 getUsername()
+[ERROR]   位置: 类型为com.fushi.dto.auth.SaltRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[26,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[26,50] 找不到符号
+[ERROR]   符号:   方法 getUsername()
+[ERROR]   位置: 类型为com.fushi.dto.auth.SaltRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[29,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[29,52] 找不到符号
+[ERROR]   符号:   方法 getUsername()
+[ERROR]   位置: 类型为com.fushi.dto.auth.SaltRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[30,63] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[39,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[39,55] 找不到符号
+[ERROR]   符号:   方法 getUsername()
+[ERROR]   位置: 类型为com.fushi.dto.auth.LoginRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[39,81] 找不到符号
+[ERROR]   符号:   方法 getDeviceFingerprint()
+[ERROR]   位置: 类型为com.fushi.dto.auth.LoginRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[42,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[42,48] 找不到符号
+[ERROR]   符号:   方法 getUsername()
+[ERROR]   位置: 类型为com.fushi.dto.auth.LoginRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[43,63] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[51,57] 找不到符号
+[ERROR]   符号:   方法 getUsername()
+[ERROR]   位置: 类型为com.fushi.dto.auth.RegisterRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[52,63] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 USER_EXIST
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[58,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[58,46] 找不到符号
+[ERROR]   符号:   方法 getUsername()
+[ERROR]   位置: 类型为com.fushi.dto.auth.RegisterRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[61,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[61,48] 找不到符号
+[ERROR]   符号:   方法 getUsername()
+[ERROR]   位置: 类型为com.fushi.dto.auth.RegisterRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[62,63] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[69,89] 找不到符号
+[ERROR]   符号:   方法 getDeviceFingerprint()
+[ERROR]   位置: 类型为com.fushi.dto.auth.RefreshTokenRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[71,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[71,58] 找不到符号
+[ERROR]   符号:   方法 getDeviceFingerprint()
+[ERROR]   位置: 类型为com.fushi.dto.auth.RefreshTokenRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[74,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[75,61] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 UNAUTHORIZED
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[82,45] 找不到符号
+[ERROR]   符号:   方法 getDeviceFingerprint()
+[ERROR]   位置: 类型为com.fushi.dto.auth.RefreshTokenRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[84,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[84,51] 找不到符号
+[ERROR]   符号:   方法 getDeviceFingerprint()
+[ERROR]   位置: 类型为com.fushi.dto.auth.RefreshTokenRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[87,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.AuthController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/AuthController.java:[88,63] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[49,58] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 NOT_FOUND
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[58,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[58,48] 找不到符号
+[ERROR]   符号:   方法 getName()
+[ERROR]   位置: 类型为com.fushi.entity.FormDefinition的变量 definition
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[61,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[62,63] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[72,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[75,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[76,63] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[84,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[87,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[88,63] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[96,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[96,46] 找不到符号
+[ERROR]   符号:   方法 getId()
+[ERROR]   位置: 类型为com.fushi.entity.FormInstance的变量 instance
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[99,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[100,63] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[108,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[108,46] 找不到符号
+[ERROR]   符号:   方法 getId()
+[ERROR]   位置: 类型为com.fushi.entity.FormInstance的变量 instance
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[111,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[112,63] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[120,58] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 NOT_FOUND
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[137,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[137,48] 找不到符号
+[ERROR]   符号:   方法 getName()
+[ERROR]   位置: 类型为com.fushi.entity.ProcessDefinition的变量 definition
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[140,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[141,63] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[154,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[154,40] 找不到符号
+[ERROR]   符号:   方法 getId()
+[ERROR]   位置: 类型为com.fushi.entity.Task的变量 task
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[157,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.controller.FormController
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/controller/FormController.java:[158,63] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.common.enums.ResultCode的变量 INTERNAL_ERROR
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysUserMapper.java:[11,83] 方法引用无效
+[ERROR]   找不到符号
+[ERROR]     符号:   方法 getUsername()
+[ERROR]     位置: 类 com.fushi.entity.SysUser
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/handler/GlobalExceptionHandler.java:[21,9] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.handler.GlobalExceptionHandler
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/handler/GlobalExceptionHandler.java:[28,9] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.handler.GlobalExceptionHandler
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/handler/GlobalExceptionHandler.java:[35,9] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.handler.GlobalExceptionHandler
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRoleMapper.java:[17,25] 方法引用无效
+[ERROR]   找不到符号
+[ERROR]     符号:   方法 getRoleName()
+[ERROR]     位置: 类 com.fushi.entity.SysRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRoleMapper.java:[18,21] 方法引用无效
+[ERROR]   找不到符号
+[ERROR]     符号:   方法 getId()
+[ERROR]     位置: 类 com.fushi.entity.SysRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRoleMapper.java:[19,21] 方法引用无效
+[ERROR]   找不到符号
+[ERROR]     符号:   方法 getStatus()
+[ERROR]     位置: 类 com.fushi.entity.SysRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRoleMapper.java:[23,35] 方法引用无效
+[ERROR]   找不到符号
+[ERROR]     符号:   方法 getRoleName()
+[ERROR]     位置: 类 com.fushi.entity.SysRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRolePermMapper.java:[16,25] 方法引用无效
+[ERROR]   找不到符号
+[ERROR]     符号:   方法 getPermId()
+[ERROR]     位置: 类 com.fushi.entity.SysRolePerm
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRolePermMapper.java:[17,21] 方法引用无效
+[ERROR]   找不到符号
+[ERROR]     符号:   方法 getRoleId()
+[ERROR]     位置: 类 com.fushi.entity.SysRolePerm
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysRolePermMapper.java:[21,36] 方法引用无效
+[ERROR]   找不到符号
+[ERROR]     符号:   方法 getPermId()
+[ERROR]     位置: 类 com.fushi.entity.SysRolePerm
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysUserRoleMapper.java:[17,21] 方法引用无效
+[ERROR]   找不到符号
+[ERROR]     符号:   方法 getUserId()
+[ERROR]     位置: 类 com.fushi.entity.SysUserRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysUserRoleMapper.java:[18,25] 方法引用无效
+[ERROR]   找不到符号
+[ERROR]     符号:   方法 getRoleId()
+[ERROR]     位置: 类 com.fushi.entity.SysUserRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/mapper/SysUserRoleMapper.java:[22,39] 方法引用无效
+[ERROR]   找不到符号
+[ERROR]     符号:   方法 getRoleId()
+[ERROR]     位置: 类 com.fushi.entity.SysUserRole
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[37,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.security.service.UserDetailsServiceImpl
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[41,19] 找不到符号
+[ERROR]   符号:   方法 getStatus()
+[ERROR]   位置: 类型为com.fushi.entity.SysUser的变量 sysUser
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[42,13] 找不到符号
+[ERROR]   符号:   变量 log
+[ERROR]   位置: 类 com.fushi.security.service.UserDetailsServiceImpl
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[49,77] 找不到符号
+[ERROR]   符号:   方法 getId()
+[ERROR]   位置: 类型为com.fushi.entity.SysUser的变量 sysUser
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[54,79] 找不到符号
+[ERROR]   符号:   方法 getId()
+[ERROR]   位置: 类型为com.fushi.entity.SysUser的变量 sysUser
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[60,24] 找不到符号
+[ERROR]   符号:   方法 getUsername()
+[ERROR]   位置: 类型为com.fushi.entity.SysUser的变量 sysUser
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/security/service/UserDetailsServiceImpl.java:[61,24] 找不到符号
+[ERROR]   符号:   方法 getPassword()
+[ERROR]   位置: 类型为com.fushi.entity.SysUser的变量 sysUser
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[26,38] 找不到符号
+[ERROR]   符号:   方法 getName()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[27,38] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[28,45] 找不到符号
+[ERROR]   符号:   方法 getDescription()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[30,76] 找不到符号
+[ERROR]   符号:   方法 getFields()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[31,82] 找不到符号
+[ERROR]   符号:   方法 getLayoutConfig()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[35,19] 找不到符号
+[ERROR]   符号:   方法 setStatus(requestDTO[...]) : 1)
+[ERROR]   位置: 类型为com.fushi.entity.FormDefinition的变量 definition
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[35,40] 找不到符号
+[ERROR]   符号:   方法 getStatus()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[35,73] 找不到符号
+[ERROR]   符号:   方法 getStatus()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[36,19] 找不到符号
+[ERROR]   符号:   方法 setCreatorId(java.lang.Long)
+[ERROR]   位置: 类型为com.fushi.entity.FormDefinition的变量 definition
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[37,19] 找不到符号
+[ERROR]   符号:   方法 setCreateTime(java.time.LocalDateTime)
+[ERROR]   位置: 类型为com.fushi.entity.FormDefinition的变量 definition
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[38,19] 找不到符号
+[ERROR]   符号:   方法 setUpdateTime(java.time.LocalDateTime)
+[ERROR]   位置: 类型为com.fushi.entity.FormDefinition的变量 definition
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[49,38] 找不到符号
+[ERROR]   符号:   方法 getName()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[50,38] 找不到符号
+[ERROR]   符号:   方法 getCode()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[51,45] 找不到符号
+[ERROR]   符号:   方法 getDescription()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[53,76] 找不到符号
+[ERROR]   符号:   方法 getFields()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[54,82] 找不到符号
+[ERROR]   符号:   方法 getLayoutConfig()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[58,23] 找不到符号
+[ERROR]   符号:   方法 getStatus()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[59,44] 找不到符号
+[ERROR]   符号:   方法 getStatus()
+[ERROR]   位置: 类型为com.fushi.dto.form.FormDefinitionRequestDTO的变量 requestDTO
+[ERROR] /D:/Desktop/little-stone/little-stone/little-stone-api/src/main/java/com/fushi/service/impl/FormDefinitionServiceImpl.java:[61,19] 找不到符号
+[ERROR]   符号:   方法 setUpdateTime(java.time.LocalDateTime)
+[ERROR]   位置: 类型为com.fushi.entity.FormDefinition的变量 definition
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

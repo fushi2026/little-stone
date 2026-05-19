@@ -1,6 +1,7 @@
 package com.fushi.security.config;
 
 import com.fushi.security.filter.JwtAuthenticationFilter;
+import com.fushi.security.handler.JwtAccessDeniedHandler;
 import com.fushi.security.handler.JwtAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,8 @@ public class SecurityConfig {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    @Autowired
+    private JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -40,16 +43,20 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .exceptionHandling(ex ->
                         ex.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                          .accessDeniedHandler(jwtAccessDeniedHandler)
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/auth/**",
+                                "/api/form/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
+                                "/v3/api-docs",
                                 "/v3/api-docs/**",
                                 "/v3/api-docs.yaml",
                                 "/favicon.ico",
-                                "/webjars/**"
+                                "/webjars/**",
+                                "/error"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

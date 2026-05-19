@@ -1,40 +1,44 @@
 import {defineStore} from 'pinia'
 import { ref } from 'vue'
-import type { LoginForm, UserInfo, ModuleItem, MenuItem, LoginResponse } from '@/types/auth'
+import type { LoginForm, RegisterForm, UserInfo, ModuleItem, MenuItem, LoginResponse } from '@/types/auth'
 import { 
     setToken, getToken, 
-    getRefreshToken, setRefreshToken, 
     clearAuthStorage, 
     setUserInfo, getUserInfo,
     setModuleList, getModuleList,
     setMenuList, getMenuList,
     setPermList, getPermList
  } from '@/utils/auth'
-import request from '@/utils/request'
+import { loginWithEncrypt, registerWithEncrypt } from '@/api/auth'
+import { getDeviceFingerprint } from '@/utils/fingerprint'
 import { generateRoutes } from '@/utils/router'
 import router from '@/router'
+import request from '@/utils/request'
 
 
 export const useUserStore = defineStore('user', () => {
     const token = ref<string>(getToken())
-    const refreshToken = ref<string>(getRefreshToken())
     const userInfo = ref<UserInfo | null>(getUserInfo())
     const moduleList = ref<ModuleItem[]>(getModuleList())
     const menuList = ref<MenuItem[]>(getMenuList())
     const permList = ref<string[]>(getPermList())
 
     /**
-     * 登录
+     * 登录（带动态盐加密和设备指纹）
      * @param form 
      */
     const login = async (form: LoginForm): Promise<void> => {
         try {
-            const res = await request.post('/auth/login', form)
+            // 添加设备指纹（异步）
+            const deviceFingerprint = await getDeviceFingerprint()
+            const formWithFingerprint = {
+                ...form,
+                deviceFingerprint
+            }
 
-            const loginResponse = res.data.data as LoginResponse
+            const loginResponse = await loginWithEncrypt(formWithFingerprint) as LoginResponse
 
             token.value = loginResponse.token
-            refreshToken.value = loginResponse.refreshToken
 
             userInfo.value = loginResponse.userInfo
 
@@ -43,7 +47,6 @@ export const useUserStore = defineStore('user', () => {
             permList.value = loginResponse.permList
 
             setToken(token.value)
-            setRefreshToken(refreshToken.value)
             setUserInfo(userInfo.value)
             setModuleList(moduleList.value)
             setMenuList(menuList.value)
@@ -52,6 +55,25 @@ export const useUserStore = defineStore('user', () => {
             await setupRoutes(loginResponse.menuList)
         } catch (error) {
             throw new Error('Login failed');
+        }
+    }
+
+    /**
+     * 注册（带动态盐加密和设备指纹）
+     * @param form 
+     */
+    const register = async (form: RegisterForm): Promise<void> => {
+        try {
+            // 添加设备指纹（异步）
+            const deviceFingerprint = await getDeviceFingerprint()
+            const formWithFingerprint = {
+                ...form,
+                deviceFingerprint
+            }
+
+            await registerWithEncrypt(formWithFingerprint)
+        } catch (error) {
+            throw new Error('Register failed');
         }
     }
 
@@ -73,7 +95,6 @@ export const useUserStore = defineStore('user', () => {
             const loginResponse = res.data.data as LoginResponse
 
             token.value = loginResponse.token
-            refreshToken.value = loginResponse.refreshToken
 
             userInfo.value = loginResponse.userInfo
 
@@ -82,7 +103,6 @@ export const useUserStore = defineStore('user', () => {
             permList.value = loginResponse.permList
 
             setToken(token.value)
-            setRefreshToken(refreshToken.value)
             setUserInfo(userInfo.value)
             setModuleList(moduleList.value)
             setMenuList(menuList.value)
@@ -99,7 +119,6 @@ export const useUserStore = defineStore('user', () => {
      */
     const logout = (): void => {
         token.value = ''
-        refreshToken.value = ''
         userInfo.value = null
         moduleList.value = []
         menuList.value = []
@@ -111,24 +130,25 @@ export const useUserStore = defineStore('user', () => {
     }
 
     /**
-     * 刷新 Token
+     * 刷新 Token（使用设备指纹，refresh token存储在后端Redis）
      */
     const refreshAccessToken = async (): Promise<string | null> => {
-        if (!refreshToken.value) {
+        if (!token.value) {
             return null
         }
 
         try {
+            // 获取设备指纹
+            const deviceFingerprint = getDeviceFingerprint()
+
             const res = await request.post('/auth/refresh', {
-                refreshToken: refreshToken.value
+                deviceFingerprint
             })
 
             const data = res.data.data
             token.value = data.token
-            refreshToken.value = data.refreshToken
 
             setToken(token.value)
-            setRefreshToken(refreshToken.value)
 
             return token.value
         } catch (error) {
@@ -143,7 +163,6 @@ export const useUserStore = defineStore('user', () => {
      */
     const resetUser = (): void => {
         token.value = ''
-        refreshToken.value = ''
         userInfo.value = null
         moduleList.value = []
         menuList.value = []
@@ -170,7 +189,6 @@ export const useUserStore = defineStore('user', () => {
 
     return {
         token,
-        refreshToken,
         userInfo,
         moduleList,
         menuList,
@@ -179,6 +197,7 @@ export const useUserStore = defineStore('user', () => {
         hasRole,
         setupRoutes,
         login,
+        register,
         fetchUserInfo,
         refreshAccessToken,
         logout,
