@@ -72,3 +72,4 @@ export const getDeviceInfo = async (): Promise<FingerprintResult | null> => {
     return null
   }
 }
+

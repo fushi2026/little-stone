@@ -26,7 +26,7 @@
           <template v-for="child in menu.children" :key="child.id">
             <el-menu-item 
               v-if="child.component" 
-              :index="child.path.startsWith('/api') ? child.path.replace('/api', '') : child.path"
+              :index="`${menu.path}${child.path}`"
             >
               <el-icon v-if="child.icon"><component :is="child.icon" /></el-icon>
               <span>{{ child.menuName }}</span>
@@ -36,7 +36,7 @@
         <!-- 没有子菜单的情况 -->
         <el-menu-item 
           v-else-if="menu.component" 
-          :index="menu.path.startsWith('/api') ? menu.path.replace('/api', '') : menu.path"
+          :index="`${menu.path}`"
         >
           <el-icon v-if="menu.icon"><component :is="menu.icon" /></el-icon>
           <el-icon v-else><Menu /></el-icon>
@@ -51,6 +51,8 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+
+import { router } from '@/router'
 
 const route = useRoute()
 const userStore = useUserStore()
@@ -67,8 +69,9 @@ const activeMenu = computed(() => {
 })
 
 onMounted(() => {
-  console.log(userStore.menuList)
-  console.log(userStore.userInfo)
+  console.log('menuList', userStore.menuList)
+  
+  console.log('router', router.getRoutes())
 })
 
 const handleOpen = (key: string, keyPath: string[]) => {

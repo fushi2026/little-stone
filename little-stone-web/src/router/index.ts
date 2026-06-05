@@ -8,6 +8,7 @@ import { ElMessage } from 'element-plus'
 const routes: Array<RouteRecordRaw> = [
   { 
     path: '/',
+    name: 'Layout',
     component: () => import('@/components/Layout.vue'),
     redirect: '/home',
     children: [
@@ -17,18 +18,6 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/home/index.vue'),
         meta: { title: '首页', requiresAuth: true }
       },
-      {
-        path: 'form/list',
-        name: 'FormList',
-        component: () => import('@/views/form/FormList.vue'),
-        meta: { title: '表单管理', requiresAuth: true }
-      },
-      {
-        path: 'form/process',
-        name: 'ProcessList',
-        component: () => import('@/views/form/ProcessList.vue'),
-        meta: { title: '流程管理', requiresAuth: true }
-      }
     ]
   },
   {
@@ -68,6 +57,7 @@ router.beforeEach(async (to, _from, next) => {
     return
   }
 
+  //如果用户已登录但没有用户信息，尝试获取用户信息
   const userStore = useUserStore()
   if(!userStore.userInfo) {
     try {
@@ -79,6 +69,10 @@ router.beforeEach(async (to, _from, next) => {
     }
   }
 
+  //路由是否加载？如果没有加载，说明是第一次访问或刷新页面，需要重新设置动态路由
+
+
+  //检查用户角色权限
   if(to.meta.roles && to.meta.roles.length > 0) {
     const hasPermission = to.meta.roles.some((role: string) => userStore.hasRole(role))
     if(!hasPermission) {

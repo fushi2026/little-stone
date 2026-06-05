@@ -5,10 +5,12 @@
           <Menu></Menu>
       </el-aside>
       <el-container>
-        <el-header class="flex items-center border-b border-gray-300 dark:border-gray-600 transition-colors duration-500">
+        <el-header height="60px" class="flex items-center border-b border-gray-300 dark:border-gray-600 transition-colors duration-500">
           <Header></Header>
         </el-header>
-        <el-main><router-view /></el-main>
+        <el-main>
+          <router-view />
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -18,6 +20,9 @@
 import Menu from '@/components/Menu.vue'
 import Header from '@/components/Header.vue'
 
+const modules = import.meta.glob('@/views/**/*.vue')
+
+console.log('layout modules', modules)
 
 </script>
 

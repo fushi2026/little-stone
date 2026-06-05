@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full px-4 flex items-center h-14 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <div class="w-full h-full flex items-center">
         <!-- 左侧模块菜单 -->
         <ul class="flex-grow flex items-center space-x-1 ml-5 text-gray-600 dark:text-gray-300">
             <li 

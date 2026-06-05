@@ -32,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 @RequiredArgsConstructor
 public class SysUserServiceImpl implements SysUserService {
+
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtUtils;
     private final PasswordEncoder passwordEncoder;
@@ -183,4 +184,5 @@ public class SysUserServiceImpl implements SysUserService {
     public Optional<SysUser> findByUsername(String username) {
         return sysUserMapper.findByUsername(username);
     }
+
 }

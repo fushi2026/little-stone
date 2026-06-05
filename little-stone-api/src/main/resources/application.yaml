@@ -43,7 +43,14 @@ mybatis-plus:
       id-type: auto
   type-aliases-package: com.fushi.entity
 
-flowable:
-  database-schema-update: true
-  async-executor-activate: false
 
+flowable:
+  # 全局开关（其他模块用）
+  database-schema-update: true
+  # 关键：App Engine单独开关（你报错的罪魁祸首）
+  app:
+    database-schema-update: true
+  # 关闭异步执行器，避免启动时额外报错
+  async-executor-activate: false
+  process:
+    async-executor-activate: false

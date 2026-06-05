@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import { ref } from 'vue'
-import type { LoginForm, RegisterForm, UserInfo, ModuleItem, MenuItem, LoginResponse } from '@/types/auth'
+import type { LoginForm, UserInfo, ModuleItem, MenuItem, LoginResponse } from '@/types/auth'
 import { 
     setToken, getToken, 
     clearAuthStorage, 
@@ -9,7 +9,7 @@ import {
     setMenuList, getMenuList,
     setPermList, getPermList
  } from '@/utils/auth'
-import { loginWithEncrypt, registerWithEncrypt } from '@/api/auth'
+import { loginWithEncrypt } from '@/api/auth'
 import { getDeviceFingerprint } from '@/utils/fingerprint'
 import { generateRoutes } from '@/utils/router'
 import router from '@/router'
@@ -17,6 +17,7 @@ import request from '@/utils/request'
 
 
 export const useUserStore = defineStore('user', () => {
+
     const token = ref<string>(getToken())
     const userInfo = ref<UserInfo | null>(getUserInfo())
     const moduleList = ref<ModuleItem[]>(getModuleList())
@@ -58,33 +59,14 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
-    /**
-     * 注册（带动态盐加密和设备指纹）
-     * @param form 
-     */
-    const register = async (form: RegisterForm): Promise<void> => {
-        try {
-            // 添加设备指纹（异步）
-            const deviceFingerprint = await getDeviceFingerprint()
-            const formWithFingerprint = {
-                ...form,
-                deviceFingerprint
-            }
-
-            await registerWithEncrypt(formWithFingerprint)
-        } catch (error) {
-            throw new Error('Register failed');
-        }
-    }
-
     //设置动态路由
     const setupRoutes = async (menus: MenuItem[]): Promise<void> => {
         const routes = generateRoutes(menus)
 
-        const layoutRoute = router.getRoutes().find(r => r.path === '/')
-        if(layoutRoute) {
+        const layoutRoute = router.getRoutes().find(r => r.name === 'Layout')
+        if (layoutRoute) {
             routes.forEach(route => {
-                router.addRoute('/', route)
+                router.addRoute('Layout', route)
             })
         }
     }
@@ -130,12 +112,10 @@ export const useUserStore = defineStore('user', () => {
     }
 
     /**
-     * 刷新 Token（使用设备指纹，refresh token存储在后端Redis）
+     * 刷新 Token
      */
     const refreshAccessToken = async (): Promise<string | null> => {
-        if (!token.value) {
-            return null
-        }
+        if (!token.value) return null
 
         try {
             // 获取设备指纹
@@ -197,7 +177,6 @@ export const useUserStore = defineStore('user', () => {
         hasRole,
         setupRoutes,
         login,
-        register,
         fetchUserInfo,
         refreshAccessToken,
         logout,
