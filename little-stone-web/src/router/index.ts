@@ -4,6 +4,8 @@ import {isLogin} from '@/utils/auth'
 import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
 
+export let isAddDynamicRoute = false
+
 
 const routes: Array<RouteRecordRaw> = [
   { 
@@ -70,7 +72,16 @@ router.beforeEach(async (to, _from, next) => {
   }
 
   //路由是否加载？如果没有加载，说明是第一次访问或刷新页面，需要重新设置动态路由
+  if(userStore.token && !isAddDynamicRoute) {
+    try {
+      await userStore.getUserMenus()
 
+      isAddDynamicRoute = true
+    } catch (error) {
+      userStore.logout()
+      next({ path: '/login', query: { redirect: to.fullPath } })
+    }
+  }
 
   //检查用户角色权限
   if(to.meta.roles && to.meta.roles.length > 0) {

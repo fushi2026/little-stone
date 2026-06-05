@@ -5,13 +5,12 @@ import com.fushi.entity.SysUser;
 import com.fushi.mapper.SysPermMapper;
 import com.fushi.mapper.SysRoleMapper;
 import com.fushi.mapper.SysUserMapper;
+import com.fushi.security.model.LoginUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final SysPermMapper sysPermMapper;
 
     @Override
-    public @NonNull UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
+    public @NonNull LoginUser loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
+
+        LoginUser loginUser = new LoginUser();
+
+        //从数据库获取用户信息
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
         SysUser sysUser = sysUserMapper.selectOne(queryWrapper);
@@ -43,6 +46,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("用户已被禁用，请联系管理员");
         }
 
+        //userId, username, password
+        loginUser.setUserId(sysUser.getId());
+        loginUser.setUsername(sysUser.getUsername());
+        loginUser.setPassword(sysUser.getPassword());
+
         // 权限
         List<GrantedAuthority> authorities = new ArrayList<>();
 
@@ -56,15 +64,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + roleCode));
         }
 
-        return new User(
-                sysUser.getUsername(),
-                sysUser.getPassword(),
-                true,
-                true,
-                true,
-                true,
-                authorities
-        );
+        loginUser.setAuthorities(authorities);
+
+        return loginUser;
     }
 
 }

@@ -20,9 +20,7 @@
 import Menu from '@/components/Menu.vue'
 import Header from '@/components/Header.vue'
 
-const modules = import.meta.glob('@/views/**/*.vue')
 
-console.log('layout modules', modules)
 
 </script>
 

@@ -96,6 +96,20 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
+    const getUserMenus = async (): Promise<void> => {
+        try {
+            const res = await request.get('/menu/getUserMenus')
+
+            const menuList = res.data as MenuItem[]
+
+            setMenuList(menuList)
+
+            await setupRoutes(menuList)
+        } catch (error) {
+            throw new Error('fail to fetch user menus！')
+        }
+    }
+
     /**
      * 退出登录
      */
@@ -107,6 +121,8 @@ export const useUserStore = defineStore('user', () => {
         permList.value = []
 
         clearAuthStorage()
+
+        import('@/router').then(mod => mod.isAddDynamicRoute = false)
 
         router.push('/login')
     }
@@ -178,6 +194,7 @@ export const useUserStore = defineStore('user', () => {
         setupRoutes,
         login,
         fetchUserInfo,
+        getUserMenus,
         refreshAccessToken,
         logout,
         resetUser
