@@ -1,12 +1,5 @@
 <template>
-  <div class="relative">
-    <div 
-      class="logo-title-container h-[60px] flex items-center justify-center transition-all duration-300"
-      @click="$router.push('/')"
-    >
-      <img src="@/assets/ico.svg" class="h-8 w-8" />
-      <span v-if="!isCollapse" class="logo-title flex items-center ml-2">小石头在线</span>
-    </div>
+  <div class="relative"> 
     <el-menu
       :default-active="activeMenu"
       class="el-menu-vertical-demo dark:text-gray-300 border-r-0 mx-auto bg-transparent transition-all duration-300"

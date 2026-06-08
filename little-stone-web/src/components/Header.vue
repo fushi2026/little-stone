@@ -1,5 +1,13 @@
 <template>
     <div class="w-full h-full flex items-center">
+        <div 
+            class="logo-title-container w-[200px] flex items-center justify-center transition-all duration-300"
+            @click="$router.push('/')"
+        >
+            <img src="@/assets/ico.svg" class="h-8 w-8" />
+            <span class="logo-title flex items-center ml-2">小石头在线</span>
+        </div>
+
         <!-- 左侧模块菜单 -->
         <ul class="flex-grow flex items-center space-x-1 ml-5 text-gray-600 dark:text-gray-300">
             <li 
@@ -202,7 +210,22 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped>
+<style type="scss" scoped>
+.logo-title-container {
+  cursor: pointer;
+  .logo-title {
+    background: -webkit-linear-gradient(315deg, #42d392 25%, #647eff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 3px;
+    font-family: "PingFang SC", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-rendering: optimizeLegibility;
+  }
+}
+
 .custom-dropdown-menu {
     position: absolute;
     top: calc(100% + 8px);

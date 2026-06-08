@@ -96,14 +96,13 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
+    /**
+     * 获取用户菜单
+     */
     const getUserMenus = async (): Promise<void> => {
         try {
             const res = await request.get('/menu/getUserMenus')
-
             const menuList = res.data as MenuItem[]
-
-            setMenuList(menuList)
-
             await setupRoutes(menuList)
         } catch (error) {
             throw new Error('fail to fetch user menus！')
