@@ -1,5 +1,6 @@
 package com.fushi.service;
 
+import com.fushi.dto.auth.ChangePasswordRequestDTO;
 import com.fushi.dto.auth.LoginRequestDTO;
 import com.fushi.dto.auth.LoginResponseDTO;
 import com.fushi.dto.auth.RefreshTokenResponseDTO;
@@ -17,6 +18,8 @@ public interface SysUserService {
     public void logout(String deviceFingerprint) throws Exception;
 
     public void register(RegisterRequestDTO requestDTO) throws Exception;
+
+    public void changePassword(ChangePasswordRequestDTO requestDTO) throws Exception;
 
     public Optional<SysUser> findByUsername(@NotBlank(message = "用户名不能为空") String username);
 }

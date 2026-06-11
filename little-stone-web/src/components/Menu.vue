@@ -95,7 +95,74 @@ const handleClose = (key: string, keyPath: string[]) => {
   width: 200px;
   min-height: 400px;
 }
-.is-active {
-  color: #42d392 !important;
+
+/* ========== 浅色模式 ========== */
+.el-menu-vertical-demo {
+  --menu-text-color: #4b5563;
+  --menu-hover-bg: #f3f4f6;
+  --menu-hover-text: #1f2937;
+  --menu-active-text: #42d392;
+  --menu-bg: transparent;
+  --submenu-bg: transparent;
+}
+
+/* ========== 暗黑模式 ========== */
+.dark .el-menu-vertical-demo {
+  --menu-text-color: #d1d5db;
+  --menu-hover-bg: rgba(255, 255, 255, 0.06);
+  --menu-hover-text: #f3f4f6;
+  --menu-active-text: #42d392;
+  --menu-bg: transparent;
+  --submenu-bg: rgba(0, 0, 0, 0.15);
+}
+
+/* 菜单项基础样式 */
+:deep(.el-menu-item) {
+  color: var(--menu-text-color) !important;
+  background: var(--menu-bg) !important;
+  transition: all 0.2s ease;
+}
+
+:deep(.el-menu-item:hover) {
+  color: var(--menu-hover-text) !important;
+  background: var(--menu-hover-bg) !important;
+}
+
+:deep(.el-menu-item.is-active) {
+  color: var(--menu-active-text) !important;
+  background: rgba(66, 211, 146, 0.1) !important;
+  font-weight: 600;
+}
+
+/* 子菜单标题 */
+:deep(.el-sub-menu__title) {
+  color: var(--menu-text-color) !important;
+  background: var(--menu-bg) !important;
+  transition: all 0.2s ease;
+}
+
+:deep(.el-sub-menu__title:hover) {
+  color: var(--menu-hover-text) !important;
+  background: var(--menu-hover-bg) !important;
+}
+
+/* 子菜单展开后的背景 */
+:deep(.el-menu--inline) {
+  background: var(--submenu-bg) !important;
+}
+
+/* 子菜单中的菜单项 */
+:deep(.el-menu--inline .el-menu-item) {
+  padding-left: 56px !important;
+}
+
+/* 暗黑模式下子菜单展开图标颜色 */
+.dark :deep(.el-sub-menu__icon-arrow) {
+  color: #9ca3af;
+}
+
+/* 暗黑模式下的边框 */
+.dark :deep(.el-menu) {
+  border-right: none;
 }
 </style>

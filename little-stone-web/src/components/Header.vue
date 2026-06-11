@@ -93,11 +93,11 @@
                                 </el-icon>
                                 <span class="text-sm text-gray-400">个人中心</span>
                             </div>
-                            <div class="menu-item disabled">
-                                <el-icon class="w-4 h-4 mr-2.5 text-gray-400">
-                                    <Settings />
+                            <div class="menu-item" @click="handleChangePasswordClick">
+                                <el-icon class="w-4 h-4 mr-2.5">
+                                    <Lock />
                                 </el-icon>
-                                <span class="text-sm text-gray-400">账号设置</span>
+                                <span class="text-sm">修改密码</span>
                             </div>
                         </div>
                         <div class="menu-divider"></div>
@@ -114,18 +114,103 @@
             </div>
         </div>
     </div>
+
+    <!-- 修改密码对话框 -->
+    <el-dialog
+        v-model="changePasswordDialogVisible"
+        title="修改密码"
+        width="420px"
+        :close-on-click-modal="false"
+        destroy-on-close
+    >
+        <el-form
+            ref="changePasswordFormRef"
+            :model="changePasswordForm"
+            :rules="changePasswordRules"
+            label-width="80px"
+        >
+            <el-form-item label="旧密码" prop="oldPassword">
+                <el-input
+                    v-model="changePasswordForm.oldPassword"
+                    type="password"
+                    placeholder="请输入旧密码"
+                    show-password
+                    autocomplete="new-password"
+                />
+            </el-form-item>
+            <el-form-item label="新密码" prop="newPassword">
+                <el-input
+                    v-model="changePasswordForm.newPassword"
+                    type="password"
+                    placeholder="请输入新密码（至少6位）"
+                    show-password
+                    autocomplete="new-password"
+                />
+            </el-form-item>
+            <el-form-item label="确认密码" prop="confirmPassword">
+                <el-input
+                    v-model="changePasswordForm.confirmPassword"
+                    type="password"
+                    placeholder="请再次输入新密码"
+                    show-password
+                    autocomplete="new-password"
+                />
+            </el-form-item>
+        </el-form>
+        <template #footer>
+            <el-button @click="changePasswordDialogVisible = false">取消</el-button>
+            <el-button type="primary" :loading="changePasswordLoading" @click="handleChangePassword">
+                确认修改
+            </el-button>
+        </template>
+    </el-dialog>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useUserStore } from '@/stores/user'
 import DynamicIcon from './DynamicIcon.vue'
-import { ElMessageBox, ElMessage } from 'element-plus'
+import { ElMessageBox, ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import { changePassword as changePasswordApi } from '@/api/user'
 
 const userStore = useUserStore()
 const isDarkMode = ref(false)
 const isDropdownOpen = ref(false)
 const selectedModuleCode = ref<string>('')
+
+// 修改密码相关
+const changePasswordDialogVisible = ref(false)
+const changePasswordLoading = ref(false)
+const changePasswordFormRef = ref<FormInstance>()
+const changePasswordForm = ref({
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+})
+
+// 表单验证规则
+const validateConfirmPassword = (rule: any, value: any, callback: any) => {
+    if (value === '') {
+        callback(new Error('请再次输入新密码'))
+    } else if (value !== changePasswordForm.value.newPassword) {
+        callback(new Error('两次输入的密码不一致'))
+    } else {
+        callback()
+    }
+}
+
+const changePasswordRules: FormRules = {
+    oldPassword: [
+        { required: true, message: '请输入旧密码', trigger: 'blur' }
+    ],
+    newPassword: [
+        { required: true, message: '请输入新密码', trigger: 'blur' },
+        { min: 6, message: '密码长度至少6位', trigger: 'blur' }
+    ],
+    confirmPassword: [
+        { required: true, validator: validateConfirmPassword, trigger: 'blur' }
+    ]
+}
 
 const toggleDarkMode = () => {
     isDarkMode.value = !isDarkMode.value
@@ -164,6 +249,44 @@ const toggleDropdown = () => {
 
 const closeDropdown = () => {
     isDropdownOpen.value = false
+}
+
+const handleChangePasswordClick = () => {
+    // 先关闭下拉面板
+    closeDropdown()
+    // 重置表单
+    changePasswordForm.value = {
+        oldPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+    }
+    changePasswordFormRef.value?.resetFields()
+    // 打开对话框
+    changePasswordDialogVisible.value = true
+}
+
+const handleChangePassword = async () => {
+    if (!changePasswordFormRef.value) return
+    
+    await changePasswordFormRef.value.validate(async (valid) => {
+        if (valid) {
+            changePasswordLoading.value = true
+            try {
+                await changePasswordApi(
+                    changePasswordForm.value.oldPassword,
+                    changePasswordForm.value.newPassword
+                )
+                ElMessage.success('密码修改成功，请重新登录')
+                changePasswordDialogVisible.value = false
+                // 退出登录，让用户重新登录
+                userStore.logout()
+            } catch (error: any) {
+                ElMessage.error(error.message || '密码修改失败')
+            } finally {
+                changePasswordLoading.value = false
+            }
+        }
+    })
 }
 
 const handleLogoutClick = async () => {

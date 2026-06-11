@@ -43,50 +43,52 @@ export const router = createRouter({
 })
 
 router.beforeEach(async (to, _from, next) => {
- if(isLogin() && to.name === 'Login') {
+  // 已登录用户访问登录页 → 跳转首页
+  if (isLogin() && to.name === 'Login') {
     next({ path: '/' })
     return
   }
 
-  if(!to.meta.requiresAuth) {
-    next()
-    return
-  }
-
-  if(!isLogin()) {
+  // 未登录用户访问需要认证的页面 → 跳转登录页
+  if (!isLogin() && to.meta.requiresAuth) {
     next({ path: '/login', query: { redirect: to.fullPath } })
     ElMessage.warning('请先登录！')
     return
   }
 
-  //如果用户已登录但没有用户信息，尝试获取用户信息
   const userStore = useUserStore()
-  if(!userStore.userInfo) {
-    try {
-        await userStore.fetchUserInfo();
-    } catch (error) {
-        userStore.logout()
-        next({ path: '/login', query: { redirect: to.fullPath } })
-        return
-    }
-  }
 
-  //路由是否加载？如果没有加载，说明是第一次访问或刷新页面，需要重新设置动态路由
-  if(userStore.token && !isAddDynamicRoute) {
+  // 已登录但动态路由还没注册 → 先注册动态路由（无论当前匹配到哪个路由）
+  if (isLogin() && !isAddDynamicRoute) {
     try {
-      await userStore.getUserMenus()
+      // 如果没有用户信息，先获取
+      if (!userStore.userInfo) {
+        await userStore.fetchUserInfo()
+      } else {
+        await userStore.getUserMenus()
+      }
 
       isAddDynamicRoute = true
+      // 用 path 重新导航（不能用 ...to，因为 to.name 可能是 NotFound）
+      next({ path: to.fullPath, replace: true })
+      return
     } catch (error) {
       userStore.logout()
       next({ path: '/login', query: { redirect: to.fullPath } })
+      return
     }
   }
 
-  //检查用户角色权限
-  if(to.meta.roles && to.meta.roles.length > 0) {
+  // 不需要认证的页面直接放行
+  if (!to.meta.requiresAuth) {
+    next()
+    return
+  }
+
+  // 检查用户角色权限
+  if (to.meta.roles && to.meta.roles.length > 0) {
     const hasPermission = to.meta.roles.some((role: string) => userStore.hasRole(role))
-    if(!hasPermission) {
+    if (!hasPermission) {
       ElMessage.error('您无权访问该页面！')
       next({ name: 'NotFound' })
       return
@@ -98,11 +100,3 @@ router.beforeEach(async (to, _from, next) => {
 
 
 export default router
-
-
-
-
-
-
-
-

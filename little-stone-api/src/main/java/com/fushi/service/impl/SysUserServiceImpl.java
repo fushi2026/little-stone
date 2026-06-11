@@ -51,10 +51,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public LoginResponseDTO login(LoginRequestDTO requestDTO) throws Exception {
-        // 通过 nonce 从 Redis 中获取对应的 salt
         String salt = passwordService.getSaltByNonce(requestDTO.getNonce());
-        
-        // 使用 salt 解密密码
         String password = EncryptionUtil.decrypt(requestDTO.getEncryptedPassword(), salt);
         
         Authentication authentication = authenticationManager.authenticate(
@@ -164,10 +161,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void register(RegisterRequestDTO requestDTO) throws Exception {
-        // 通过 nonce 从 Redis 中获取对应的 salt
         String salt = passwordService.getSaltByNonce(requestDTO.getNonce());
-        
-        // 使用 salt 解密密码
         String password = EncryptionUtil.decrypt(requestDTO.getEncryptedPassword(), salt);
         
         SysUser user = new SysUser();
@@ -178,6 +172,31 @@ public class SysUserServiceImpl implements SysUserService {
         user.setNickname(requestDTO.getNickname());
         user.setCreateTime(LocalDateTime.now());
         sysUserMapper.insert(user);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void changePassword(ChangePasswordRequestDTO requestDTO) throws Exception {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        String username = userDetails.getUsername();
+
+        String salt = passwordService.getSaltByNonce(requestDTO.getNonce());
+
+        String oldPassword = EncryptionUtil.decrypt(requestDTO.getOldPassword(), salt);
+        String newPassword = EncryptionUtil.decrypt(requestDTO.getNewPassword(), salt);
+
+        SysUser sysUser = sysUserMapper.findByUsername(username)
+                .orElseThrow(() -> new Exception("用户不存在"));
+
+        if (!passwordEncoder.matches(oldPassword, sysUser.getPassword())) {
+            throw new Exception("旧密码不正确");
+        }
+
+        sysUser.setPassword(passwordEncoder.encode(newPassword));
+        sysUser.setUpdateTime(LocalDateTime.now());
+        sysUserMapper.updateById(sysUser);
     }
 
     @Override
