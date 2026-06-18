@@ -38,6 +38,7 @@ export interface MenuItem {
     component?: string | null
     icon?: string | null
     sort?: number
+    moduleCode?: string  // 可选的模块代码，用于菜单过滤
     children?: MenuItem[]
 }
 

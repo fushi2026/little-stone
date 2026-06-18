@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
@@ -51,9 +51,11 @@ const route = useRoute()
 const userStore = useUserStore()
 const isCollapse = ref(false)
 
-// 动态菜单项
+// 动态菜单项 - 根据选中的模块过滤
 const menuList = computed(() => {
-  return userStore.menuList || []
+  const allMenus = userStore.menuList || []
+  const currentModuleCode = userStore.selectedModuleCode
+  return allMenus.filter(menu => menu.moduleCode === currentModuleCode)
 })
 
 // 当前激活的菜单
@@ -62,9 +64,7 @@ const activeMenu = computed(() => {
 })
 
 onMounted(() => {
-  console.log('menuList', userStore.menuList)
-  
-  console.log('router', router.getRoutes())
+
 })
 
 const handleOpen = (key: string, keyPath: string[]) => {

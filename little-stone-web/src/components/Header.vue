@@ -176,7 +176,6 @@ import { changePassword as changePasswordApi } from '@/api/user'
 const userStore = useUserStore()
 const isDarkMode = ref(false)
 const isDropdownOpen = ref(false)
-const selectedModuleCode = ref<string>('')
 
 // 修改密码相关
 const changePasswordDialogVisible = ref(false)
@@ -225,7 +224,7 @@ const toggleDarkMode = () => {
 }
 
 const getModuleItemClass = (moduleCode: string) => {
-    const isSelected = selectedModuleCode.value === moduleCode
+    const isSelected = userStore.selectedModuleCode === moduleCode
     if (isSelected) {
         return 'bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400 shadow-sm'
     }
@@ -233,13 +232,13 @@ const getModuleItemClass = (moduleCode: string) => {
 }
 
 const selectModule = (moduleCode: string, index: number) => {
-    selectedModuleCode.value = moduleCode
+    userStore.setSelectedModuleCode(moduleCode)
     console.log(`Selected module: ${moduleCode} (index: ${index})`)
 }
 
 const initDefaultModule = () => {
-    if (userStore.moduleList.length > 0) {
-        selectedModuleCode.value = userStore.moduleList[0]?.moduleCode || ''
+    if (userStore.moduleList.length > 0 && !userStore.selectedModuleCode) {
+        userStore.setSelectedModuleCode(userStore.moduleList[0]?.moduleCode || '')
     }
 }
 

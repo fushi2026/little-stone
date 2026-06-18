@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class MenuDTO {
     private Long id;
+    private String moduleCode;
     private Long parentId;
     private String menuName;
     private String path;

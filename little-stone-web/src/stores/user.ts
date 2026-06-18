@@ -23,6 +23,7 @@ export const useUserStore = defineStore('user', () => {
     const moduleList = ref<ModuleItem[]>(getModuleList())
     const menuList = ref<MenuItem[]>(getMenuList())
     const permList = ref<string[]>(getPermList())
+    const selectedModuleCode = ref<string>('')
 
     /**
      * 登录（带动态盐加密和设备指纹）
@@ -52,6 +53,11 @@ export const useUserStore = defineStore('user', () => {
             setModuleList(moduleList.value)
             setMenuList(menuList.value)
             setPermList(permList.value)
+
+            // 初始化默认选中第一个模块
+            if (loginResponse.moduleList.length > 0) {
+                selectedModuleCode.value = loginResponse.moduleList[0]?.moduleCode || ''
+            }
 
             await setupRoutes(loginResponse.menuList)
         } catch (error) {
@@ -90,6 +96,11 @@ export const useUserStore = defineStore('user', () => {
             setMenuList(menuList.value)
             setPermList(permList.value)
 
+            // 初始化默认选中第一个模块
+            if (loginResponse.moduleList.length > 0) {
+                selectedModuleCode.value = loginResponse.moduleList[0]?.moduleCode || ''
+            }
+
             await setupRoutes(loginResponse.menuList)
         } catch (error) {
             throw new Error('Failed to fetch user info')
@@ -103,6 +114,7 @@ export const useUserStore = defineStore('user', () => {
         try {
             const res = await request.get('/menu/getUserMenus')
             const menuList = res.data as MenuItem[]
+
             await setupRoutes(menuList)
         } catch (error) {
             throw new Error('fail to fetch user menus！')
@@ -118,6 +130,7 @@ export const useUserStore = defineStore('user', () => {
         moduleList.value = []
         menuList.value = []
         permList.value = []
+        selectedModuleCode.value = ''
 
         clearAuthStorage()
 
@@ -162,6 +175,7 @@ export const useUserStore = defineStore('user', () => {
         moduleList.value = []
         menuList.value = []
         permList.value = []
+        selectedModuleCode.value = ''
 
         clearAuthStorage()
 
@@ -182,12 +196,20 @@ export const useUserStore = defineStore('user', () => {
         return userInfo.value?.roleList.includes(role) || false
     }
 
+    /**
+     * 设置选中的模块
+     */
+    const setSelectedModuleCode = (moduleCode: string): void => {
+        selectedModuleCode.value = moduleCode
+    }
+
     return {
         token,
         userInfo,
         moduleList,
         menuList,
         permList,
+        selectedModuleCode,
         hasPermission,
         hasRole,
         setupRoutes,
@@ -196,6 +218,7 @@ export const useUserStore = defineStore('user', () => {
         getUserMenus,
         refreshAccessToken,
         logout,
-        resetUser
+        resetUser,
+        setSelectedModuleCode
     }
 })

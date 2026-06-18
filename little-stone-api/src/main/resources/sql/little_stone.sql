@@ -11,7 +11,7 @@
  Target Server Version : 90600 (9.6.0)
  File Encoding         : 65001
 
- Date: 08/06/2026 10:51:09
+ Date: 18/06/2026 15:40:30
 */
 
 SET NAMES utf8mb4;
@@ -1852,7 +1852,7 @@ CREATE TABLE `form_definition`  (
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_code`(`code` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '表单定义表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '表单定义表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of form_definition
@@ -1876,7 +1876,7 @@ CREATE TABLE `form_instance`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_form_definition_id`(`form_definition_id` ASC) USING BTREE,
   INDEX `idx_process_instance_id`(`process_instance_id` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '表单实例表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '表单实例表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of form_instance
@@ -1900,7 +1900,7 @@ CREATE TABLE `process_definition`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_process_code`(`code` ASC) USING BTREE,
   INDEX `idx_form_definition_id`(`form_definition_id` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '流程定义表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '流程定义表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of process_definition
@@ -1923,7 +1923,7 @@ CREATE TABLE `process_instance`  (
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_process_definition_id`(`process_definition_id` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '流程实例表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '流程实例表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of process_instance
@@ -1948,7 +1948,7 @@ CREATE TABLE `sys_menu`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -1956,6 +1956,11 @@ CREATE TABLE `sys_menu`  (
 INSERT INTO `sys_menu` VALUES (1, 'BUSINESS', 0, '项目管理', 1, '/project', NULL, 'Grid', 1, 1, 1, '2026-05-27 10:25:55', '2026-05-27 12:08:20');
 INSERT INTO `sys_menu` VALUES (2, 'BUSINESS', 1, '立项管理', 1, '/project_lx', 'project/project_lx/index', NULL, 2, 1, 1, '2026-05-27 12:02:00', '2026-06-05 10:22:32');
 INSERT INTO `sys_menu` VALUES (3, 'BUSINESS', 1, '投标管理', 1, '/project_bid', 'project/project_bid/index', NULL, 1, 1, 1, '2026-06-05 10:31:59', '2026-06-05 10:31:59');
+INSERT INTO `sys_menu` VALUES (4, 'SETTING', 0, '组织架构', 1, '/organization', NULL, 'OfficeBuilding', 1, 1, 1, '2026-06-18 14:29:03', '2026-06-18 14:30:12');
+INSERT INTO `sys_menu` VALUES (5, 'SETTING', 4, '部门管理', 1, '/department', 'organization/department/index', NULL, 1, 1, 1, '2026-06-18 14:34:19', '2026-06-18 14:34:19');
+INSERT INTO `sys_menu` VALUES (6, 'SETTING', 4, '用户管理', 1, '/user', 'organization/user/index', NULL, 2, 1, 1, '2026-06-18 14:34:19', '2026-06-18 14:34:19');
+INSERT INTO `sys_menu` VALUES (7, 'SETTING', 4, '角色管理', 1, '/role', 'organization/role/index', NULL, 3, 1, 1, '2026-06-18 14:34:19', '2026-06-18 14:34:19');
+INSERT INTO `sys_menu` VALUES (8, 'SETTING', 4, '用户组管理', 1, '/user_group', 'organization/user_group/index', NULL, 4, 1, 1, '2026-06-18 14:34:19', '2026-06-18 14:34:19');
 
 -- ----------------------------
 -- Table structure for sys_module
@@ -2038,7 +2043,7 @@ CREATE TABLE `sys_role_menu`  (
   `role_id` bigint NOT NULL COMMENT '角色ID',
   `menu_id` bigint NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -2046,6 +2051,11 @@ CREATE TABLE `sys_role_menu`  (
 INSERT INTO `sys_role_menu` VALUES (1, 1, 1);
 INSERT INTO `sys_role_menu` VALUES (2, 1, 2);
 INSERT INTO `sys_role_menu` VALUES (3, 1, 3);
+INSERT INTO `sys_role_menu` VALUES (4, 1, 4);
+INSERT INTO `sys_role_menu` VALUES (5, 1, 5);
+INSERT INTO `sys_role_menu` VALUES (6, 1, 6);
+INSERT INTO `sys_role_menu` VALUES (7, 1, 7);
+INSERT INTO `sys_role_menu` VALUES (8, 1, 8);
 
 -- ----------------------------
 -- Table structure for sys_role_module
@@ -2109,7 +2119,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$fe0selKOZ33txSa3R.7/X.7lGte43B/dEWXs/8lVZodgL6cA1AhZ2', NULL, '系统管理员', 1, NULL, NULL, '2026-02-11 12:24:29', '2026-05-07 15:05:16');
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$fe0selKOZ33txSa3R.7/X.7lGte43B/dEWXs/8lVZodgL6cA1AhZ2', NULL, '系统管理员', 1, NULL, NULL, '2026-02-11 12:24:29', '2026-06-18 14:02:45');
 INSERT INTO `sys_user` VALUES (2, 'fushi', '$2a$10$fe0selKOZ33txSa3R.7/X.7lGte43B/dEWXs/8lVZodgL6cA1AhZ2', NULL, NULL, 1, NULL, NULL, '2026-03-26 17:01:26', '2026-05-07 15:05:16');
 INSERT INTO `sys_user` VALUES (3, 'zhangsan', '$2a$10$fe0selKOZ33txSa3R.7/X.7lGte43B/dEWXs/8lVZodgL6cA1AhZ2', NULL, '张三', 1, NULL, NULL, '2026-05-07 15:04:35', '2026-05-07 15:04:35');
 
